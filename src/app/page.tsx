@@ -1,84 +1,9 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Zap, Github, Mail, Wrench, CircuitBoard, Microscope } from "lucide-react"
-
-const cipherMap: Record<string, string> = {
-  a: '4', e: '3', i: '1', o: '0', s: '5', b: '8', t: '7',
-  A: '4', E: '3', I: '1', O: '0', S: '5', B: '8', T: '7',
-}
-
-function toCipher(text: string) {
-  return text.split('').map(c => cipherMap[c] || c).join('')
-}
-
-function useCypherText(plain: string, scrambleSymbols = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*_-+=|", interval = 15000, active = true) {
-  const [display, setDisplay] = useState(plain)
-  const [showCipher, setShowCipher] = useState(false)
-  useEffect(() => {
-    if (!active) {
-      setDisplay(plain)
-      return
-    }
-    let scrambleTimeout: NodeJS.Timeout
-    let changeTimeout: NodeJS.Timeout
-    let revealIndex = 0
-    const revealed = Array(plain.length).fill("")
-    const cipher = toCipher(plain)
-    const scramble = () => {
-      let scrambleStep = 0
-      scrambleTimeout = setInterval(() => {
-        const scrambled = revealed.map((char, idx) => {
-          if (idx < revealIndex) return showCipher ? cipher[idx] : plain[idx]
-          if (plain[idx] === " ") return " "
-          return scrambleSymbols[Math.floor(Math.random() * scrambleSymbols.length)]
-        })
-        setDisplay(scrambled.join(""))
-        scrambleStep++
-        if (scrambleStep > 4) {
-          clearInterval(scrambleTimeout)
-          revealNext()
-        }
-      }, 30)
-    }
-    const revealNext = () => {
-      if (revealIndex < plain.length) {
-        revealed[revealIndex] = showCipher ? cipher[revealIndex] : plain[revealIndex]
-        revealIndex++
-        scramble()
-      } else {
-        setDisplay(showCipher ? cipher : plain)
-        changeTimeout = setTimeout(() => {
-          setShowCipher(v => !v)
-        }, interval)
-      }
-    }
-    scramble()
-    return () => {
-      clearTimeout(changeTimeout)
-      clearInterval(scrambleTimeout)
-    }
-  }, [plain, showCipher, active, interval, scrambleSymbols])
-  return display
-}
-
-function useInViewAnimation(plain: string, scrambleSymbols = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*_-+=|", interval = 15000) {
-  const ref = useRef<HTMLSpanElement | null>(null)
-  const [active, setActive] = useState(false)
-  const display = useCypherText(plain, scrambleSymbols, interval, active)
-  useEffect(() => {
-    const node = ref.current
-    const observer = new window.IntersectionObserver(
-      ([entry]) => setActive(entry.isIntersecting),
-      { threshold: 0.2 }
-    )
-    if (node) observer.observe(node)
-    return () => { if (node) observer.unobserve(node) }
-  }, [])
-  return [display, ref] as const
-}
 
 function LiquidGlassPopup({ open, onClose }: { open: boolean, onClose: () => void }) {
   if (!open) return null
@@ -95,10 +20,25 @@ function LiquidGlassPopup({ open, onClose }: { open: boolean, onClose: () => voi
 
 export default function HackerFabWebsite() {
   const [glitchText, setGlitchText] = useState("hackerfab")
+  // Add simple top phrases
+  const topPhrases = [
+    "hacking the hardware_",
+    "pushing the limits_",
+    "breaking the barriers_",
+    "fabricating access_",
+    "from schematics to systems_", 
+  ]
+  const [topPhraseIndex, setTopPhraseIndex] = useState(0)
   const [terminalText, setTerminalText] = useState("")
   const [terminalIndex, setTerminalIndex] = useState(0)
-  const [animatedTagline, taglineRef] = useInViewAnimation(terminalText)
-  const [animatedTitle, titleRef] = useInViewAnimation(glitchText)
+
+  // Remove cipher effect from top phrase, just rotate every 12s
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTopPhraseIndex((prev) => (prev + 1) % topPhrases.length)
+    }, 12000)
+    return () => clearInterval(interval)
+  }, [topPhrases.length])
 
   useEffect(() => {
     const terminalPhrases = [
@@ -141,7 +81,7 @@ export default function HackerFabWebsite() {
         setTerminalText(phrase)
         changeTimeout = setTimeout(() => {
           setTerminalIndex((prev) => (prev + 1) % terminalPhrases.length)
-        }, 7000)
+        }, 15000) // make interval longer
       }
     }
 
@@ -154,11 +94,10 @@ export default function HackerFabWebsite() {
   }, [terminalIndex])
 
   useEffect(() => {
+    const glitchChars = ["h4ck3rf4b", "hackerfab", "h@ckerfab", "hackerfab"]
     const glitchInterval = setInterval(() => {
-      const glitchChars = ["h4ck3rf4b", "hackerfab", "h@ckerfab", "hackerfab"]
       setGlitchText(glitchChars[Math.floor(Math.random() * glitchChars.length)])
     }, 2000)
-
     return () => clearInterval(glitchInterval)
   }, [])
 
@@ -242,19 +181,16 @@ export default function HackerFabWebsite() {
 
       <section className="relative min-h-screen flex items-center justify-center px-4">
         <div className="text-center space-y-8 max-w-4xl">
-          <div className="space-y-4">
-            <span ref={taglineRef} className="text-sm text-cyan-400 tracking-widest">{animatedTagline}</span>
-            <h1 className="text-6xl md:text-8xl font-bold tracking-tight">
-              <span ref={titleRef} className="text-white">{animatedTitle}</span>
-              <span className="text-cyan-400 animate-pulse">_</span>
-            </h1>
-            <div className="text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto">
-              uoft&apos;s hardware hacking collective
-            </div>
-            <div className="text-lg text-gray-400">semiconductors • chip fabrication • building with silicon</div>
+          <div className="text-cyan-400 text-xs mb-2" style={{letterSpacing: 2}}>{topPhrases[topPhraseIndex]}</div>
+          <h1 className="text-6xl md:text-8xl font-bold tracking-tight mx-auto w-fit">
+            <span className="text-white">{glitchText}</span>
+            <span className="text-cyan-400 animate-pulse">_</span>
+          </h1>
+          <div className="text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto">
+            uoft's hardware hacking collective
           </div>
-
-          <div className="flex flex-wrap justify-center gap-4 text-sm">
+          <div className="text-lg text-gray-400 mb-6">semiconductors • chip fabrication • building with silicon</div>
+          <div className="flex flex-wrap justify-center gap-4 text-sm mt-4">
             <div className="flex items-center gap-2 px-3 py-1 border border-green-400 rounded">
               <CircuitBoard className="w-4 h-4" />
               <span>design</span>
