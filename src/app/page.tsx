@@ -278,7 +278,7 @@ export default function HackerFabWebsite() {
       <section className="py-20 px-4 flex justify-center items-center">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-4xl font-bold text-white mb-8">
-            <span className="text-cyan-400">//</span> what we build
+            {'//'} what we build
           </h2>
           <div className="space-y-4 text-gray-300 leading-relaxed text-lg">
             <p>
@@ -296,7 +296,7 @@ export default function HackerFabWebsite() {
       <section className="py-20 px-4 bg-black">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-white mb-12 text-center">
-            <span className="text-cyan-400">//</span> current projects
+            {'//'} current projects
           </h2>
 
           <div className="grid md:grid-cols-2 gap-6">
@@ -341,7 +341,7 @@ export default function HackerFabWebsite() {
       <section className="py-20 px-4">
         <div className="max-w-4xl mx-auto text-center space-y-8">
           <h2 className="text-4xl font-bold text-white">
-            <span className="text-cyan-400">//</span> join the lab
+            {'//'} join the lab
           </h2>
 
           <p className="text-xl text-gray-300">ready to build the future of computing? hit us up.</p>
