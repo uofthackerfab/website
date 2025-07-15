@@ -3,8 +3,9 @@
 import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Zap, Github, Mail, Wrench, CircuitBoard, Microscope } from "lucide-react"
+import { Cpu, Zap, Github, Mail, Users, Wrench, CircuitBoard, Microscope } from "lucide-react"
 
+// Cipher mapping for leetspeak
 const cipherMap: Record<string, string> = {
   a: '4', e: '3', i: '1', o: '0', s: '5', b: '8', t: '7',
   A: '4', E: '3', I: '1', O: '0', S: '5', B: '8', T: '7',
@@ -25,12 +26,12 @@ function useCypherText(plain: string, scrambleSymbols = "ABCDEFGHIJKLMNOPQRSTUVW
     let scrambleTimeout: NodeJS.Timeout
     let changeTimeout: NodeJS.Timeout
     let revealIndex = 0
-    const revealed = Array(plain.length).fill("")
+    let revealed = Array(plain.length).fill("")
     const cipher = toCipher(plain)
     const scramble = () => {
       let scrambleStep = 0
       scrambleTimeout = setInterval(() => {
-        const scrambled = revealed.map((char, idx) => {
+        let scrambled = revealed.map((char, idx) => {
           if (idx < revealIndex) return showCipher ? cipher[idx] : plain[idx]
           if (plain[idx] === " ") return " "
           return scrambleSymbols[Math.floor(Math.random() * scrambleSymbols.length)]
@@ -60,7 +61,8 @@ function useCypherText(plain: string, scrambleSymbols = "ABCDEFGHIJKLMNOPQRSTUVW
       clearTimeout(changeTimeout)
       clearInterval(scrambleTimeout)
     }
-  }, [plain, showCipher, active, interval, scrambleSymbols])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [plain, showCipher, active])
   return display
 }
 
@@ -69,13 +71,12 @@ function useInViewAnimation(plain: string, scrambleSymbols = "ABCDEFGHIJKLMNOPQR
   const [active, setActive] = useState(false)
   const display = useCypherText(plain, scrambleSymbols, interval, active)
   useEffect(() => {
-    const node = ref.current
     const observer = new window.IntersectionObserver(
       ([entry]) => setActive(entry.isIntersecting),
       { threshold: 0.2 }
     )
-    if (node) observer.observe(node)
-    return () => { if (node) observer.unobserve(node) }
+    if (ref.current) observer.observe(ref.current)
+    return () => { if (ref.current) observer.unobserve(ref.current) }
   }, [])
   return [display, ref] as const
 }
@@ -95,30 +96,28 @@ function LiquidGlassPopup({ open, onClose }: { open: boolean, onClose: () => voi
 
 export default function HackerFabWebsite() {
   const [glitchText, setGlitchText] = useState("hackerfab")
+  const terminalPhrases = [
+    "> fabricating the future_",
+    "> hacking the hardware_",
+    "> building with silicon_",
+    "> pushing the limits_",
+    "> cleanroom to code_",
+  ]
   const [terminalText, setTerminalText] = useState("")
   const [terminalIndex, setTerminalIndex] = useState(0)
-  const [animatedTagline, taglineRef] = useInViewAnimation(terminalText)
-  const [animatedTitle, titleRef] = useInViewAnimation(glitchText)
 
   useEffect(() => {
-    const terminalPhrases = [
-      "> fabricating the future_",
-      "> hacking the hardware_",
-      "> building with silicon_",
-      "> pushing the limits_",
-      "> cleanroom to code_",
-    ]
     let changeTimeout: NodeJS.Timeout
     let scrambleTimeout: NodeJS.Timeout
     const symbols = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*_-+=|".split("")
     const phrase = terminalPhrases[terminalIndex]
-    const revealed = Array(phrase.length).fill("")
+    let revealed = Array(phrase.length).fill("")
     let revealIndex = 0
 
     const scramble = () => {
       let scrambleStep = 0
       scrambleTimeout = setInterval(() => {
-        const scrambled = revealed.map((char, idx) => {
+        let scrambled = revealed.map((char, idx) => {
           if (idx < revealIndex) return phrase[idx]
           if (phrase[idx] === " ") return " "
           return symbols[Math.floor(Math.random() * symbols.length)]
@@ -151,6 +150,7 @@ export default function HackerFabWebsite() {
       clearTimeout(changeTimeout)
       clearInterval(scrambleTimeout)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [terminalIndex])
 
   useEffect(() => {
@@ -205,37 +205,22 @@ export default function HackerFabWebsite() {
   }
 
   const [popupOpen, setPopupOpen] = useState(false)
-
-  // Fix hydration error: generate random lines only on client
-  const [randomLines, setRandomLines] = useState<
-    { left: string; top: string; animationDelay: string; char: string }[]
-  >([])
-  useEffect(() => {
-    const lines = Array.from({ length: 30 }).map(() => ({
-      left: `${Math.random() * 100}%`,
-      top: `${Math.random() * 100}%`,
-      animationDelay: `${Math.random() * 5}s`,
-      char: Math.random() > 0.5 ? "━" : "┃",
-    }))
-    setRandomLines(lines)
-  }, [])
-
   return (
     <div className="min-h-screen bg-black text-green-400 font-mono overflow-x-hidden">
       <LiquidGlassPopup open={popupOpen} onClose={() => setPopupOpen(false)} />
       <div className="fixed inset-0 opacity-10 pointer-events-none">
         <div className="absolute inset-0 bg-gradient-to-b from-green-900/20 to-transparent"></div>
-        {randomLines.map((line, i) => (
+        {Array.from({ length: 30 }).map((_, i) => (
           <div
             key={i}
             className="absolute text-xs animate-pulse"
             style={{
-              left: line.left,
-              top: line.top,
-              animationDelay: line.animationDelay,
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 5}s`,
             }}
           >
-            {line.char}
+            {Math.random() > 0.5 ? "━" : "┃"}
           </div>
         ))}
       </div>
@@ -243,9 +228,9 @@ export default function HackerFabWebsite() {
       <section className="relative min-h-screen flex items-center justify-center px-4">
         <div className="text-center space-y-8 max-w-4xl">
           <div className="space-y-4">
-            <span ref={taglineRef} className="text-sm text-cyan-400 tracking-widest">{animatedTagline}</span>
+            <div className="text-sm text-cyan-400 tracking-widest">{(() => { const [display, ref] = useInViewAnimation(terminalText); return <span ref={ref}>{display}</span> })()}</div>
             <h1 className="text-6xl md:text-8xl font-bold tracking-tight">
-              <span ref={titleRef} className="text-white">{animatedTitle}</span>
+              {(() => { const [display, ref] = useInViewAnimation(glitchText); return <span ref={ref} className="text-white">{display}</span> })()}
               <span className="text-cyan-400 animate-pulse">_</span>
             </h1>
             <div className="text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto">
@@ -278,7 +263,7 @@ export default function HackerFabWebsite() {
       <section className="py-20 px-4 flex justify-center items-center">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-4xl font-bold text-white mb-8">
-            {'//'} what we build
+            <span className="text-cyan-400">//</span> what we build
           </h2>
           <div className="space-y-4 text-gray-300 leading-relaxed text-lg">
             <p>
@@ -296,7 +281,7 @@ export default function HackerFabWebsite() {
       <section className="py-20 px-4 bg-black">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-white mb-12 text-center">
-            {'//'} current projects
+            <span className="text-cyan-400">//</span> current projects
           </h2>
 
           <div className="grid md:grid-cols-2 gap-6">
@@ -341,7 +326,7 @@ export default function HackerFabWebsite() {
       <section className="py-20 px-4">
         <div className="max-w-4xl mx-auto text-center space-y-8">
           <h2 className="text-4xl font-bold text-white">
-            {'//'} join the lab
+            <span className="text-cyan-400">//</span> join the lab
           </h2>
 
           <p className="text-xl text-gray-300">ready to build the future of computing? hit us up.</p>
