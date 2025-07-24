@@ -149,15 +149,17 @@ export default function HackerFabWebsite() {
   const [randomLines, setRandomLines] = useState<
     { left: string; top: string; animationDelay: string; char: string }[]
   >([])
-  useEffect(() => {
-    const lines = Array.from({ length: 30 }).map(() => ({
-      left: `${Math.random() * 100}%`,
-      top: `${Math.random() * 100}%`,
-      animationDelay: `${Math.random() * 5}s`,
-      char: Math.random() > 0.5 ? "━" : "┃",
-    }))
-    setRandomLines(lines)
-  }, [])
+useEffect(() => {
+  if (typeof window === "undefined") return // skip on server
+
+  const lines = Array.from({ length: 30 }).map(() => ({
+    left: `${Math.random() * 100}%`,
+    top: `${Math.random() * 100}%`,
+    animationDelay: `${Math.random() * 5}s`,
+    char: Math.random() > 0.5 ? "━" : "┃",
+  }))
+  setRandomLines(lines)
+}, [])
 
   return (
     <div className="min-h-screen bg-black text-green-400 font-mono overflow-x-hidden">
@@ -183,12 +185,15 @@ export default function HackerFabWebsite() {
         <div className="text-center space-y-8 max-w-4xl">
           <div className="text-cyan-400 text-xs mb-2" style={{letterSpacing: 2}}>{topPhrases[topPhraseIndex]}</div>
           <h1 className="text-6xl md:text-8xl font-bold tracking-tight mx-auto w-fit">
-            <span className="text-white">{glitchText}</span>
-            <span className="text-cyan-400 animate-pulse">_</span>
-          </h1>
-          <div className="text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto">
-            uoft's hardware hacking collective
-          </div>
+  <span className="text-white">{glitchText}</span>
+  <span className="text-cyan-400 animate-pulse">_</span>
+</h1>
+<div className="text-green-400 text-md font-mono mt-4">
+  {terminalText}
+</div>
+<div className="text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto">
+  uoft&apos;s hardware hacking collective
+</div>
           <div className="text-lg text-gray-400 mb-6">semiconductors • chip fabrication • building with silicon</div>
           <div className="flex flex-wrap justify-center gap-4 text-sm mt-4">
             <div className="flex items-center gap-2 px-3 py-1 border border-green-400 rounded">
