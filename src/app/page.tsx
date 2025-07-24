@@ -29,8 +29,6 @@ export default function HackerFabWebsite() {
     "from schematics to systems_", 
   ]
   const [topPhraseIndex, setTopPhraseIndex] = useState(0)
-  const [terminalText, setTerminalText] = useState("")
-  const [terminalIndex, setTerminalIndex] = useState(0)
 
   // Remove cipher effect from top phrase, just rotate every 12s
   useEffect(() => {
@@ -39,59 +37,6 @@ export default function HackerFabWebsite() {
     }, 12000)
     return () => clearInterval(interval)
   }, [topPhrases.length])
-
-  useEffect(() => {
-    const terminalPhrases = [
-      "> fabricating the future_",
-      "> hacking the hardware_",
-      "> building with silicon_",
-      "> pushing the limits_",
-      "> cleanroom to code_",
-    ]
-    let changeTimeout: NodeJS.Timeout
-    let scrambleTimeout: NodeJS.Timeout
-    const symbols = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*_-+=|".split("")
-    const phrase = terminalPhrases[terminalIndex]
-    const revealed = Array(phrase.length).fill("")
-    let revealIndex = 0
-
-    const scramble = () => {
-      let scrambleStep = 0
-      scrambleTimeout = setInterval(() => {
-        const scrambled = revealed.map((char, idx) => {
-          if (idx < revealIndex) return phrase[idx]
-          if (phrase[idx] === " ") return " "
-          return symbols[Math.floor(Math.random() * symbols.length)]
-        })
-        setTerminalText(scrambled.join(""))
-        scrambleStep++
-        if (scrambleStep > 4) {
-          clearInterval(scrambleTimeout)
-          revealNext()
-        }
-      }, 30)
-    }
-
-    const revealNext = () => {
-      if (revealIndex < phrase.length) {
-        revealed[revealIndex] = phrase[revealIndex]
-        revealIndex++
-        scramble()
-      } else {
-        setTerminalText(phrase)
-        changeTimeout = setTimeout(() => {
-          setTerminalIndex((prev) => (prev + 1) % terminalPhrases.length)
-        }, 15000) // make interval longer
-      }
-    }
-
-    scramble()
-
-    return () => {
-      clearTimeout(changeTimeout)
-      clearInterval(scrambleTimeout)
-    }
-  }, [terminalIndex])
 
   useEffect(() => {
     const glitchChars = ["h4ck3rf4b", "hackerfab", "h@ckerfab", "hackerfab"]
@@ -188,9 +133,6 @@ useEffect(() => {
   <span className="text-white">{glitchText}</span>
   <span className="text-cyan-400 animate-pulse">_</span>
 </h1>
-<div className="text-green-400 text-md font-mono mt-4">
-  {terminalText}
-</div>
 <div className="text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto">
   uoft&apos;s hardware hacking collective
 </div>
