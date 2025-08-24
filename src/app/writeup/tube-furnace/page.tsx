@@ -1,7 +1,7 @@
 "use client"
 import { useState } from 'react'
-import { ArrowLeft, Calendar, User, ExternalLink, Github, Twitter } from "lucide-react"
-import Link from "next/link"
+import { Calendar, User, Github, Twitter } from "lucide-react"
+// ...existing code...
 
 export default function TubeFurnaceWriteup() {
   const [tocHovered, setTocHovered] = useState(false)
@@ -23,7 +23,7 @@ export default function TubeFurnaceWriteup() {
     { id: 'projector-analysis', title: 'Projector Analysis RCA PD110', level: 1 }
   ]
 
-  const scrollToSection = (id) => {
+  const scrollToSection = (id: string) => {
     const element = document.getElementById(id)
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' })
@@ -83,7 +83,7 @@ export default function TubeFurnaceWriteup() {
         <article className="bg-[#232323] border border-gray-800 rounded-lg p-8 text-white">
           <header className="mb-8">
             <h1 className="text-3xl font-bold text-white mb-4 leading-tight">
-                Tube Furnace - "How Did We Not Die"
+                Tube Furnace - &quot;How Did We Not Die&quot;
             </h1>
             <p className="text-xl text-gray-300 mb-6 leading-relaxed">
             Complete technical writeup on the design, and construction of our DIY tube furnace capable of reaching 1100°C for advanced material processing.
@@ -127,7 +127,7 @@ export default function TubeFurnaceWriteup() {
               </p>
 
               <blockquote className="border-l-4 border-gray-500 pl-4 py-2 bg-gray-800 text-gray-100 italic">
-                "The best way to understand complex fabrication processes is to build the tools yourself."
+                &quot;The best way to understand complex fabrication processes is to build the tools yourself.&quot;
               </blockquote>
             </section>
 
@@ -200,7 +200,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
                 </li>
                 <li className="flex items-start gap-3">
                   <div className="w-1.5 h-1.5 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
-                  <span><strong>Substrate Matching:</strong> Laser must focus through optical path similar to disc's polycarbonate layer - use standard microscope cover glass for impedance matching</span>
+                  <span><strong>Substrate Matching:</strong> Laser must focus through optical path similar to disc&apos;s polycarbonate layer - use standard microscope cover glass for impedance matching</span>
                 </li>
               </ul>
             </section>

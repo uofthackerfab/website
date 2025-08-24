@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Zap, Github, Mail, Wrench, CircuitBoard, Microscope, FileText } from "lucide-react"
+import { Github, Mail } from "lucide-react"
+import { FileText } from "lucide-react"
 
 function LiquidGlassPopup({ open, onClose }: { open: boolean, onClose: () => void }) {
   if (!open) return null
