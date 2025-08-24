@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Zap, Github, Mail, Wrench, CircuitBoard, Microscope } from "lucide-react"
+import { Zap, Github, Mail, Wrench, CircuitBoard, Microscope, FileText } from "lucide-react"
 
 function LiquidGlassPopup({ open, onClose }: { open: boolean, onClose: () => void }) {
   if (!open) return null
@@ -51,25 +51,33 @@ export default function HackerFabWebsite() {
       name: "tube furnace",
       description: "High-temperature furnace for semiconductor processing and material synthesis.",
       tech: ["Thermal Processing", "Quartz Tube", "Gas Flow"],
-      status: "active",
+    status: "done",
+    github: "https://github.com/uofthackerfab/tube-furnace",
+  writeup: "/writeup/tube-furnace",
     },
     {
       name: "spincoater",
       description: "Device for uniform thin film deposition via high-speed spinning.",
       tech: ["Thin Films", "Photoresist", "Motor Control"],
-      status: "active",
+    status: "active",
+    github: "https://github.com/uofthackerfab/spincoater",
+  writeup: "/writeup/spincoater",
     },
     {
       name: "lithography stepper",
       description: "Precision optical system for photolithography pattern transfer.",
       tech: ["Photolithography", "Optics", "Stepper"],
-      status: "research",
+    status: "research",
+    github: "https://github.com/uofthackerfab/lithography-stepper",
+  writeup: "/writeup/lithography-stepper",
     },
     {
       name: "magnetron sputter",
       description: "Vacuum deposition system for thin film metal and dielectric coatings.",
       tech: ["Vacuum", "Plasma", "Thin Films"],
-      status: "research",
+    status: "research",
+    github: "https://github.com/uofthackerfab/magnetron-sputter",
+  writeup: "/writeup/magnetron-sputter",
     },
   ]
 
@@ -83,6 +91,8 @@ export default function HackerFabWebsite() {
         return "text-blue-400 border-blue-400"
       case "research":
         return "text-purple-400 border-purple-400"
+        case "done":
+          return "text-blue-400 border-blue-400"
       default:
         return "text-gray-400 border-gray-400"
     }
@@ -137,25 +147,7 @@ useEffect(() => {
   uoft&apos;s hardware hacking collective
 </div>
           <div className="text-lg text-gray-400 mb-6">semiconductors • chip fabrication • building with silicon</div>
-          <div className="flex flex-wrap justify-center gap-4 text-sm mt-4">
-            <div className="flex items-center gap-2 px-3 py-1 border border-green-400 rounded">
-              <CircuitBoard className="w-4 h-4" />
-              <span>design</span>
-            </div>
-            <div className="flex items-center gap-2 px-3 py-1 border border-cyan-400 rounded">
-              <Wrench className="w-4 h-4" />
-              <span>fabricate</span>
-            </div>
-            <div className="flex items-center gap-2 px-3 py-1 border border-yellow-400 rounded">
-              <Microscope className="w-4 h-4" />
-              <span>test</span>
-            </div>
-            <div className="flex items-center gap-2 px-3 py-1 border border-purple-400 rounded">
-              <Zap className="w-4 h-4" />
-              <span>iterate</span>
-            </div>
-          </div>
-        </div>
+                  </div>
       </section>
 
       <section className="py-20 px-4 flex justify-center items-center">
@@ -209,10 +201,20 @@ useEffect(() => {
                   </div>
 
                   <div className="flex justify-end">
-                    <Button variant="ghost" size="sm" className="text-green-400 hover:text-white hover:bg-green-400/20" onClick={() => setPopupOpen(true)}>
-                      <Github className="w-4 h-4 mr-2" />
-                      schematics
-                    </Button>
+                    <div className="flex gap-2 justify-end">
+                      <a href={project.github} target="_blank" rel="noopener noreferrer">
+                        <Button variant="ghost" size="sm" className="text-gray-400 hover:text-gray-200 hover:bg-gray-700/20">
+                          <Github className="w-4 h-4 mr-2 text-gray-400" />
+                          github
+                        </Button>
+                      </a>
+                      <a href={project.writeup}>
+                        <Button variant="ghost" size="sm" className="text-gray-400 hover:text-gray-200 hover:bg-gray-700/20">
+                          <FileText className="w-4 h-4 mr-2 text-gray-400" />
+                          technical writeup
+                        </Button>
+                      </a>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
