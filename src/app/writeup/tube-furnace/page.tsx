@@ -86,7 +86,7 @@ export default function TubeFurnaceWriteup() {
                 Tube Furnace - &quot;How Did We Not Die&quot;
             </h1>
             <p className="text-xl text-gray-300 mb-6 leading-relaxed">
-            Complete technical writeup on the design, and construction of our DIY tube furnace capable of reaching 1100°C for advanced material processing.
+              the complete article on "how" we built a 1100°C tube furnace from scratch
             </p>
             
             <div className="flex flex-wrap items-center gap-4 text-sm text-gray-400 mb-6">
@@ -98,7 +98,6 @@ export default function TubeFurnaceWriteup() {
                 <Calendar className="w-4 h-4" />
                 <span>August 21st, 2025</span>
               </div>
-              <span>- min read</span>
             </div>
 
             <div className="flex gap-3 mb-6">
@@ -117,9 +116,10 @@ export default function TubeFurnaceWriteup() {
 
           <div className="blog-content space-y-8">
             <section id="introduction">
+              <img src="/images/writeup/tube-furnace/hackerfab.gif" alt="Tube Furnace Introduction" className="w-full h-auto rounded-lg mb-6" />
               <h2 className="text-2xl font-bold text-white mb-4">Introduction</h2>
               <p className="text-gray-200 leading-relaxed mb-4">
-               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              
               </p>
               
               <p className="text-gray-200 leading-relaxed mb-4">
