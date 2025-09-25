@@ -10,6 +10,7 @@ export default function SpincoaterWriteup() {
         <li>Assembly instructions</li>
         <li>Testing and results</li>
       </ul>
+      <p className="text-gray-400 mb-4">This page will be updated with detailed information about the spincoater project as it becomes available.</p>
     </div>
   )
 }
