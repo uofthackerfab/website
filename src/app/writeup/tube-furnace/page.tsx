@@ -1,6 +1,7 @@
 "use client"
 import { useState } from 'react'
-import { Calendar, User, Github, Twitter } from "lucide-react"
+import { Calendar, User } from "lucide-react"
+import Image from 'next/image'
 // ...existing code...
 
 export default function TubeFurnaceWriteup() {
@@ -12,7 +13,7 @@ export default function TubeFurnaceWriteup() {
     { id: 'heating-element', title: 'Heating Element Design', level: 1 },
     { id: 'insulation', title: 'Insulation Strategy', level: 1 },
     { id: 'temperature-control', title: 'Temperature Control', level: 1 },
-    { id: 'safety', title: 'Safety (The "Not Dying" Part)', level: 1 },
+    { id: 'safety', title: 'Safety (The &quot;Not Dying&quot; Part)', level: 1 },
     { id: 'construction', title: 'Construction Process', level: 1 },
     { id: 'testing', title: 'Testing & Validation', level: 1 },
     { id: 'lessons-learned', title: 'Lessons Learned', level: 1 },
@@ -83,7 +84,7 @@ export default function TubeFurnaceWriteup() {
                 Tube Furnace - &quot;How Did We Not Die&quot;
             </h1>
             <p className="text-xl text-gray-300 mb-6 leading-relaxed">
-              the complete article on "how" we built a 1100°C tube furnace from scratch
+              the complete article on &quot;how&quot; we built a 1100°C tube furnace from scratch
             </p>
             
             <div className="flex flex-wrap items-center gap-4 text-sm text-gray-400 mb-6">
@@ -101,10 +102,10 @@ export default function TubeFurnaceWriteup() {
 
           <div className="blog-content space-y-8">
             <section id="introduction">
-              <img src="/images/writeup/tube-furnace/hackerfab.gif" alt="Tube Furnace Introduction" className="w-full h-auto rounded-lg mb-6" />
+              <Image src="/images/writeup/tube-furnace/hackerfab.gif" alt="Tube Furnace Introduction" width={800} height={400} className="w-full h-auto rounded-lg mb-6" />
               <h2 className="text-2xl font-bold text-white mb-4">Introduction</h2>
               <p className="text-gray-200 leading-relaxed mb-4">
-                Building a 1100°C tube furnace from scratch - honestly, looking back, we're not entirely sure how we didn't accidentally create a small disaster. But here we are, with a fully functional high-temperature furnace that's been running reliably for months. This writeup covers everything from our initial "let's just wing it" approach to the final implementation that actually works.
+                Building a 1100°C tube furnace from scratch - honestly, looking back, we&apos;re not entirely sure how we didn&apos;t accidentally create a small disaster. But here we are, with a fully functional high-temperature furnace that&apos;s been running reliably for months. This writeup covers everything from our initial &quot;let&apos;s just wing it&quot; approach to the final implementation that actually works.
               </p>
               
               <p className="text-gray-200 leading-relaxed mb-4">
@@ -112,7 +113,7 @@ export default function TubeFurnaceWriteup() {
               </p>
 
               <p className="text-gray-200 leading-relaxed mb-4">
-                Spoiler alert: A lot could go wrong. We went through three temperature controllers, burned out two heating elements, and discovered that "eyeballing" thermal expansion calculations is not a recommended engineering practice. But we learned a ton, saved a ridiculous amount of money, and ended up with something that works better than we had any right to expect.
+                Spoiler alert: A lot could go wrong. We went through three temperature controllers, burned out two heating elements, and discovered that &quot;eyeballing&quot; thermal expansion calculations is not a recommended engineering practice. But we learned a ton, saved a ridiculous amount of money, and ended up with something that works better than we had any right to expect.
               </p>
 
               <blockquote className="border-l-4 border-gray-500 pl-4 py-2 bg-gray-800 text-gray-100 italic">
@@ -157,14 +158,14 @@ export default function TubeFurnaceWriteup() {
               </div>
 
               <p className="text-gray-200 leading-relaxed mb-4">
-                The core philosophy was "keep it simple, but don't cut corners on safety." We used proven materials and designs, but fabricated everything ourselves. The quartz tube came from a lab supply company (about $80 - definitely not something to DIY), but everything else was built from scratch.
+                The core philosophy was &quot;keep it simple, but don&apos;t cut corners on safety.&quot; We used proven materials and designs, but fabricated everything ourselves. The quartz tube came from a lab supply company (about $80 - definitely not something to DIY), but everything else was built from scratch.
               </p>
             </section>
 
             <section id="heating-element">
               <h2 className="text-2xl font-bold text-white mb-6">Heating Element Design</h2>
               <p className="text-gray-200 leading-relaxed mb-6">
-                This is where things get spicy - literally. We're pumping 2.5kW through nichrome wire to hit 1100°C. The heating element design is critical because if it fails, you either get no heat or... well, too much heat in the wrong places.
+                This is where things get spicy - literally. We&apos;re pumping 2.5kW through nichrome wire to hit 1100°C. The heating element design is critical because if it fails, you either get no heat or... well, too much heat in the wrong places.
               </p>
 
               <ul className="space-y-4 text-gray-200 mb-6">
@@ -188,7 +189,7 @@ export default function TubeFurnaceWriteup() {
 
               <div className="bg-gray-900 border border-gray-700 rounded-lg p-6">
                 <h4 className="text-white font-semibold mb-3">Heating Element Math</h4>
-                <p className="text-gray-300 text-sm mb-3">Because someone's going to ask how we calculated the wire length...</p>
+                <p className="text-gray-300 text-sm mb-3">Because someone&apos;s going to ask how we calculated the wire length...</p>
                 <div className="font-mono text-sm space-y-2">
                   <div className="text-blue-300">Target Power: 2500W @ 240V → R = V²/P = 23Ω</div>
                   <div className="text-blue-300">Nichrome resistance: ~1.1Ω/ft @ 20°C</div>
@@ -224,7 +225,7 @@ export default function TubeFurnaceWriteup() {
             <section id="temperature-control">
               <h2 className="text-2xl font-bold text-white mb-6">Temperature Control</h2>
               <p className="text-gray-200 leading-relaxed mb-6">
-                We went through three different temperature controllers before settling on a proper PID controller with K-type thermocouple input. The first two were... learning experiences. Turns out "good enough for a toaster oven" is not the same as "good enough for 1100°C semiconductor processing."
+                We went through three different temperature controllers before settling on a proper PID controller with K-type thermocouple input. The first two were... learning experiences. Turns out &quot;good enough for a toaster oven&quot; is not the same as &quot;good enough for 1100°C semiconductor processing.&quot;
               </p>
 
               <ul className="space-y-4 text-gray-200 mb-6">
@@ -248,9 +249,9 @@ export default function TubeFurnaceWriteup() {
             </section>
 
             <section id="safety">
-              <h2 className="text-2xl font-bold text-white mb-6">Safety (The "Not Dying" Part)</h2>
+              <h2 className="text-2xl font-bold text-white mb-6">Safety (The &quot;Not Dying&quot; Part)</h2>
               <p className="text-gray-200 leading-relaxed mb-6">
-                Let's be real: we're dealing with enough electrical power to weld steel, temperatures that can melt copper, and toxic gases if things go wrong. Safety isn't optional - it's the difference between a successful project and a very expensive insurance claim.
+                Let&apos;s be real: we&apos;re dealing with enough electrical power to weld steel, temperatures that can melt copper, and toxic gases if things go wrong. Safety isn&apos;t optional - it&apos;s the difference between a successful project and a very expensive insurance claim.
               </p>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
@@ -280,14 +281,14 @@ export default function TubeFurnaceWriteup() {
               </div>
 
               <p className="text-gray-200 leading-relaxed mb-4">
-                The most important safety feature? A brain. We don't operate this thing without proper planning, and we never leave it unattended during heating cycles. Murphy's Law loves high-temperature equipment.
+                The most important safety feature? A brain. We don&apos;t operate this thing without proper planning, and we never leave it unattended during heating cycles. Murphy&apos;s Law loves high-temperature equipment.
               </p>
             </section>
 
             <section id="construction">
               <h2 className="text-2xl font-bold text-white mb-6">Construction Process</h2>
               <p className="text-gray-200 leading-relaxed mb-6">
-                Building this thing was a exercise in "measure twice, cut once, swear frequently." The construction took about three weeks of evenings and weekends, plus an embarrassing number of trips to various specialty suppliers.
+                Building this thing was a exercise in &quot;measure twice, cut once, swear frequently.&quot; The construction took about three weeks of evenings and weekends, plus an embarrassing number of trips to various specialty suppliers.
               </p>
 
               <div className="space-y-6">
@@ -308,14 +309,14 @@ export default function TubeFurnaceWriteup() {
                 <div>
                   <h4 className="text-white font-semibold mb-3">Phase 3: Insulation Installation</h4>
                   <p className="text-gray-200 leading-relaxed mb-3">
-                    This is where things got itchy. Ceramic fiber insulation is amazing stuff, but it's not kind to exposed skin. Full PPE required. We cut everything slightly oversized and compressed it into place for a tight fit.
+                    This is where things got itchy. Ceramic fiber insulation is amazing stuff, but it&apos;s not kind to exposed skin. Full PPE required. We cut everything slightly oversized and compressed it into place for a tight fit.
                   </p>
                 </div>
 
                 <div>
                   <h4 className="text-white font-semibold mb-3">Phase 4: Controls & Wiring</h4>
                   <p className="text-gray-200 leading-relaxed mb-3">
-                    The control panel was built into a separate NEMA enclosure - never put electronics inside the furnace itself. Learned that lesson from someone else's mistake. All high-voltage wiring in proper conduit with appropriate ratings.
+                    The control panel was built into a separate NEMA enclosure - never put electronics inside the furnace itself. Learned that lesson from someone else&apos;s mistake. All high-voltage wiring in proper conduit with appropriate ratings.
                   </p>
                 </div>
               </div>
@@ -357,7 +358,7 @@ export default function TubeFurnaceWriteup() {
             <section id="lessons-learned">
               <h2 className="text-2xl font-bold text-white mb-6">Lessons Learned</h2>
               <p className="text-gray-200 leading-relaxed mb-6">
-                Every project teaches you something. This one taught us a lot, sometimes the hard way. Here's what we wish we'd known before starting:
+                Every project teaches you something. This one taught us a lot, sometimes the hard way. Here&apos;s what we wish we&apos;d known before starting:
               </p>
 
               <ul className="space-y-4 text-gray-200 mb-6">
@@ -371,11 +372,11 @@ export default function TubeFurnaceWriteup() {
                 </li>
                 <li className="flex items-start gap-3">
                   <div className="w-1.5 h-1.5 bg-orange-500 rounded-full mt-2 flex-shrink-0"></div>
-                  <span><strong>PID tuning takes time:</strong> Don't expect perfect control immediately. Each system is different and requires patient tuning.</span>
+                  <span><strong>PID tuning takes time:</strong> Don&apos;t expect perfect control immediately. Each system is different and requires patient tuning.</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <div className="w-1.5 h-1.5 bg-orange-500 rounded-full mt-2 flex-shrink-0"></div>
-                  <span><strong>Safety systems aren't optional:</strong> The one time you skip a safety check is when something will go wrong.</span>
+                  <span><strong>Safety systems aren&apos;t optional:</strong> The one time you skip a safety check is when something will go wrong.</span>
                 </li>
               </ul>
             </section>
@@ -383,18 +384,18 @@ export default function TubeFurnaceWriteup() {
             <section id="performance">
               <h2 className="text-2xl font-bold text-white mb-6">Performance & Results</h2>
               <p className="text-gray-200 leading-relaxed mb-6">
-                After six months of regular use, the furnace has exceeded our expectations. We've successfully run oxidation processes, annealing cycles, and dopant activation steps. The temperature control is solid, and the construction has held up well.
+                After six months of regular use, the furnace has exceeded our expectations. We&apos;ve successfully run oxidation processes, annealing cycles, and dopant activation steps. The temperature control is solid, and the construction has held up well.
               </p>
 
               <p className="text-gray-200 leading-relaxed mb-4">
-                Most importantly, we haven't died. That might sound like a low bar, but given the amount of energy this thing contains, we consider it a significant achievement.
+                Most importantly, we haven&apos;t died. That might sound like a low bar, but given the amount of energy this thing contains, we consider it a significant achievement.
               </p>
             </section>
 
             <section id="improvements">
               <h2 className="text-2xl font-bold text-white mb-6">Future Improvements</h2>
               <p className="text-gray-200 leading-relaxed mb-6">
-                No project is ever truly finished. Here's what we'd change for version 2:
+                No project is ever truly finished. Here&apos;s what we&apos;d change for version 2:
               </p>
 
               <ul className="space-y-3 text-gray-200">
