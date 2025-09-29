@@ -8,19 +8,16 @@ export default function TubeFurnaceWriteup() {
 
   const tocItems = [
     { id: 'introduction', title: 'Introduction', level: 1 },
-    { id: 'patterning', title: 'Patterning', level: 1 },
-    { id: 'diy-blu-ray', title: 'DIY Blu-Ray Lithography (Spinner)', level: 2 },
-    { id: 'safety', title: 'Safety', level: 1 },
-    { id: 'technical-concepts', title: 'Technical Concepts', level: 1 },
-    { id: 'operational-notes', title: 'Operational Notes', level: 1 },
-    { id: 'documentation', title: 'Documentation and Examples', level: 1 },
-    { id: 'stepper-system', title: 'Stepper System', level: 1 },
-    { id: 'stepper-setup', title: 'Stepper Setup', level: 1 },
-    { id: 'k-layout', title: 'K-Layout (Mask Design)', level: 1 },
-    { id: 'stepper-improvements', title: 'Stepper V1/V2/V2.1 Improvements', level: 1 },
-    { id: 'improving-feature-size', title: 'Improving Feature Size', level: 1 },
-    { id: 'capabilities', title: 'Capabilities', level: 1 },
-    { id: 'projector-analysis', title: 'Projector Analysis RCA PD110', level: 1 }
+    { id: 'design-overview', title: 'Design Overview', level: 1 },
+    { id: 'heating-element', title: 'Heating Element Design', level: 1 },
+    { id: 'insulation', title: 'Insulation Strategy', level: 1 },
+    { id: 'temperature-control', title: 'Temperature Control', level: 1 },
+    { id: 'safety', title: 'Safety (The "Not Dying" Part)', level: 1 },
+    { id: 'construction', title: 'Construction Process', level: 1 },
+    { id: 'testing', title: 'Testing & Validation', level: 1 },
+    { id: 'lessons-learned', title: 'Lessons Learned', level: 1 },
+    { id: 'performance', title: 'Performance & Results', level: 1 },
+    { id: 'improvements', title: 'Future Improvements', level: 1 }
   ]
 
   const scrollToSection = (id: string) => {
@@ -99,18 +96,6 @@ export default function TubeFurnaceWriteup() {
                 <span>August 21st, 2025</span>
               </div>
             </div>
-
-            <div className="flex gap-3 mb-6">
-              <button className="flex items-center gap-2 px-3 py-1.5 text-sm border border-gray-700 rounded-md text-gray-300 hover:text-white hover:bg-gray-800 transition-colors">
-                <Github className="w-4 h-4" />
-                GitHub
-              </button>
-              <button className="flex items-center gap-2 px-3 py-1.5 text-sm border border-gray-700 rounded-md text-gray-300 hover:text-white hover:bg-gray-800 transition-colors">
-                <Twitter className="w-4 h-4" />
-                Twitter
-              </button>
-            </div>
-
             <div className="w-full h-px bg-gray-200 mb-8"></div>
           </header>
 
@@ -119,11 +104,15 @@ export default function TubeFurnaceWriteup() {
               <img src="/images/writeup/tube-furnace/hackerfab.gif" alt="Tube Furnace Introduction" className="w-full h-auto rounded-lg mb-6" />
               <h2 className="text-2xl font-bold text-white mb-4">Introduction</h2>
               <p className="text-gray-200 leading-relaxed mb-4">
-              
+                Building a 1100°C tube furnace from scratch - honestly, looking back, we're not entirely sure how we didn't accidentally create a small disaster. But here we are, with a fully functional high-temperature furnace that's been running reliably for months. This writeup covers everything from our initial "let's just wing it" approach to the final implementation that actually works.
               </p>
               
               <p className="text-gray-200 leading-relaxed mb-4">
-               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                The motivation was simple: commercial tube furnaces cost $15,000+ and we needed something for our semiconductor processing experiments. Our budget? About $800. The solution? Build it ourselves using nichrome wire, firebrick, and a healthy dose of engineering stubbornness. What could possibly go wrong?
+              </p>
+
+              <p className="text-gray-200 leading-relaxed mb-4">
+                Spoiler alert: A lot could go wrong. We went through three temperature controllers, burned out two heating elements, and discovered that "eyeballing" thermal expansion calculations is not a recommended engineering practice. But we learned a ton, saved a ridiculous amount of money, and ended up with something that works better than we had any right to expect.
               </p>
 
               <blockquote className="border-l-4 border-gray-500 pl-4 py-2 bg-gray-800 text-gray-100 italic">
@@ -131,76 +120,299 @@ export default function TubeFurnaceWriteup() {
               </blockquote>
             </section>
 
-            <section id="patterning">
-              <h2 className="text-2xl font-bold text-white mb-6">Patterning</h2>
+            <section id="design-overview">
+              <h2 className="text-2xl font-bold text-white mb-6">Design Overview</h2>
               <p className="text-gray-200 leading-relaxed mb-6">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Our tube furnace follows a pretty standard design: a quartz tube surrounded by heating elements, wrapped in insulation, all controlled by a PID temperature controller. The devil, as always, is in the details - and there are a lot of details that can kill you if you get them wrong.
               </p>
-              <div id="diy-blu-ray" className="mb-8">
-                <h3 className="text-xl font-semibold text-white mb-4">DIY Blu-Ray Lithography (Spinner)</h3>
-                <p className="text-gray-200 leading-relaxed mb-4">
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum..
-                </p>
-                <ul className="space-y-3 text-gray-200 mb-6">
-                  <li className="flex items-start gap-3">
-                    <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
-                    <span><strong>Resolution:</strong> Capable of patterning down to 500 nm resolution with proper optics alignment</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
-                    <span><strong>Laser System:</strong> Uses Blu-ray laser (405 nm wavelength), sled and spindle motors for high-precision positioning</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
-                    <span><strong>Dual Function:</strong> Motors serve dual-purpose for both spin-coating and laser writing operations</span>
-                  </li>
-                </ul>
-                <div className="bg-gray-900 border border-gray-700 rounded-lg p-6">
-                  <h4 className="text-white font-semibold mb-3">System Specifications</h4>
-                  <div className="grid grid-cols-2 gap-4 text-sm">
-                    <div>
-                      <span className="text-gray-400">Minimum Feature Size:</span>
-                      <span className="text-blue-300 ml-2 font-mono">500nm</span>
-                    </div>
-                    <div>
-                      <span className="text-gray-400">Laser Wavelength:</span>
-                      <span className="text-blue-300 ml-2 font-mono">405nm</span>
-                    </div>
-                    <div>
-                      <span className="text-gray-400">Positioning Accuracy:</span>
-                      <span className="text-blue-300 ml-2 font-mono">±100nm</span>
-                    </div>
-                    <div>
-                      <span className="text-gray-400">Write Speed:</span>
-                      <span className="text-blue-300 ml-2 font-mono">2.5mm/s</span>
-                    </div>
+              
+              <div className="bg-gray-900 border border-gray-700 rounded-lg p-6 mb-6">
+                <h4 className="text-white font-semibold mb-3">Key Specifications</h4>
+                <div className="grid grid-cols-2 gap-4 text-sm">
+                  <div>
+                    <span className="text-gray-400">Max Temperature:</span>
+                    <span className="text-orange-300 ml-2 font-mono">1100°C</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-400">Tube Diameter:</span>
+                    <span className="text-blue-300 ml-2 font-mono">50mm ID</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-400">Heating Length:</span>
+                    <span className="text-blue-300 ml-2 font-mono">300mm</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-400">Total Power:</span>
+                    <span className="text-orange-300 ml-2 font-mono">2.5kW</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-400">Temperature Stability:</span>
+                    <span className="text-green-300 ml-2 font-mono">±2°C</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-400">Total Cost:</span>
+                    <span className="text-green-300 ml-2 font-mono">~$750</span>
+                  </div>
+                </div>
+              </div>
+
+              <p className="text-gray-200 leading-relaxed mb-4">
+                The core philosophy was "keep it simple, but don't cut corners on safety." We used proven materials and designs, but fabricated everything ourselves. The quartz tube came from a lab supply company (about $80 - definitely not something to DIY), but everything else was built from scratch.
+              </p>
+            </section>
+
+            <section id="heating-element">
+              <h2 className="text-2xl font-bold text-white mb-6">Heating Element Design</h2>
+              <p className="text-gray-200 leading-relaxed mb-6">
+                This is where things get spicy - literally. We're pumping 2.5kW through nichrome wire to hit 1100°C. The heating element design is critical because if it fails, you either get no heat or... well, too much heat in the wrong places.
+              </p>
+
+              <ul className="space-y-4 text-gray-200 mb-6">
+                <li className="flex items-start gap-3">
+                  <div className="w-1.5 h-1.5 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
+                  <span><strong>Wire Selection:</strong> 20 AWG nichrome (Ni80Cr20) - chosen for its high melting point and stable resistance characteristics up to 1200°C</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="w-1.5 h-1.5 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
+                  <span><strong>Winding Pattern:</strong> Helical coils with 2mm spacing to prevent hot spots and ensure even heat distribution along the tube</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="w-1.5 h-1.5 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
+                  <span><strong>Support Structure:</strong> Custom-machined alumina ceramic tube to hold the heating coils - alumina is stable to 1700°C and electrically insulating</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="w-1.5 h-1.5 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
+                  <span><strong>Power Calculation:</strong> ~8.3 W/cm² power density - calculated to reach 1100°C with our insulation setup while staying well below wire limits</span>
+                </li>
+              </ul>
+
+              <div className="bg-gray-900 border border-gray-700 rounded-lg p-6">
+                <h4 className="text-white font-semibold mb-3">Heating Element Math</h4>
+                <p className="text-gray-300 text-sm mb-3">Because someone's going to ask how we calculated the wire length...</p>
+                <div className="font-mono text-sm space-y-2">
+                  <div className="text-blue-300">Target Power: 2500W @ 240V → R = V²/P = 23Ω</div>
+                  <div className="text-blue-300">Nichrome resistance: ~1.1Ω/ft @ 20°C</div>
+                  <div className="text-blue-300">Wire length needed: 23Ω ÷ 1.1Ω/ft ≈ 21 feet</div>
+                  <div className="text-gray-400 text-xs mt-2">* Resistance increases ~30% at operating temperature</div>
+                </div>
+              </div>
+            </section>
+
+            <section id="insulation">
+              <h2 className="text-2xl font-bold text-white mb-6">Insulation Strategy</h2>
+              <p className="text-gray-200 leading-relaxed mb-6">
+                Good insulation is what separates a tube furnace from a very expensive space heater. We went with a multi-layer approach: ceramic fiber blanket closest to the heating element, then vermiculite-filled firebrick, then an outer steel shell.
+              </p>
+
+              <p className="text-gray-200 leading-relaxed mb-4">
+                The ceramic fiber blanket (Kaowool) handles the high-temperature zone and provides excellent thermal isolation. The firebrick adds thermal mass and structural support. The outer shell keeps everything contained and provides mounting points for accessories.
+              </p>
+
+              <div className="bg-amber-900/20 border border-amber-700 rounded-lg p-4 mb-6">
+                <div className="flex items-start gap-3">
+                  <div className="w-5 h-5 text-amber-400 mt-0.5">⚠️</div>
+                  <div>
+                    <h4 className="text-amber-200 font-semibold mb-2">Insulation Safety Note</h4>
+                    <p className="text-amber-100 text-sm">
+                      Ceramic fiber insulation can release respirable fibers. Always wear proper PPE during installation and ensure adequate ventilation. We sealed all exposed edges with high-temp cement.
+                    </p>
                   </div>
                 </div>
               </div>
             </section>
-            <section id="technical-concepts">
-              <h2 className="text-2xl font-bold text-white mb-6">Technical Implementation</h2>
+
+            <section id="temperature-control">
+              <h2 className="text-2xl font-bold text-white mb-6">Temperature Control</h2>
               <p className="text-gray-200 leading-relaxed mb-6">
-                The core technologies behind our lithography system involve precise optical control, 
-                mechanical positioning, and real-time feedback systems. Understanding these fundamentals 
-                is crucial for successful implementation.
+                We went through three different temperature controllers before settling on a proper PID controller with K-type thermocouple input. The first two were... learning experiences. Turns out "good enough for a toaster oven" is not the same as "good enough for 1100°C semiconductor processing."
               </p>
-              <ul className="space-y-4 text-gray-200">
+
+              <ul className="space-y-4 text-gray-200 mb-6">
                 <li className="flex items-start gap-3">
-                  <div className="w-1.5 h-1.5 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
-                  <span><strong>OPU (Optical Pickup Unit):</strong> The heart of the system - reads/writes optical discs and provides integrated laser diodes, photodiodes, and focus mechanisms</span>
+                  <div className="w-1.5 h-1.5 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
+                  <span><strong>Controller:</strong> Inkbird ITC-100VH with K-type thermocouple input - chosen for its 1200°C range and solid-state relay output</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <div className="w-1.5 h-1.5 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
-                  <span><strong>Rayleigh Criterion:</strong> Defines the fundamental limit of optical resolution - determines smallest resolvable feature size (<a href="#" className="text-blue-300 underline">theoretical background</a>)</span>
+                  <div className="w-1.5 h-1.5 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
+                  <span><strong>Thermocouple Placement:</strong> K-type probe positioned at the center of the heating zone, about 5mm from the tube wall</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <div className="w-1.5 h-1.5 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
-                  <span><strong>Astigmatic Focus:</strong> Uses ABCD photodiode configuration for precise focus control - optimal focus achieved when (A+C) - (B+D) = 0</span>
+                  <div className="w-1.5 h-1.5 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
+                  <span><strong>Power Switching:</strong> 40A solid-state relay (massive overkill, but heat sinks are cheaper than replacing burnt relays)</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <div className="w-1.5 h-1.5 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
-                  <span><strong>Substrate Matching:</strong> Laser must focus through optical path similar to disc&apos;s polycarbonate layer - use standard microscope cover glass for impedance matching</span>
+                  <div className="w-1.5 h-1.5 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
+                  <span><strong>PID Tuning:</strong> P=50, I=200, D=50 - took about a week of tweaking to get stable ±2°C control</span>
+                </li>
+              </ul>
+            </section>
+
+            <section id="safety">
+              <h2 className="text-2xl font-bold text-white mb-6">Safety (The "Not Dying" Part)</h2>
+              <p className="text-gray-200 leading-relaxed mb-6">
+                Let's be real: we're dealing with enough electrical power to weld steel, temperatures that can melt copper, and toxic gases if things go wrong. Safety isn't optional - it's the difference between a successful project and a very expensive insurance claim.
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div className="bg-red-900/20 border border-red-700 rounded-lg p-4">
+                  <h4 className="text-red-200 font-semibold mb-3 flex items-center gap-2">
+                    🔥 Thermal Safety
+                  </h4>
+                  <ul className="space-y-2 text-red-100 text-sm">
+                    <li>• Outer surface stays below 60°C at max temp</li>
+                    <li>• Automatic shutdown if thermocouple fails</li>
+                    <li>• Emergency power cutoff switch</li>
+                    <li>• Heat-resistant gloves rated to 1200°C</li>
+                  </ul>
+                </div>
+
+                <div className="bg-yellow-900/20 border border-yellow-700 rounded-lg p-4">
+                  <h4 className="text-yellow-200 font-semibold mb-3 flex items-center gap-2">
+                    ⚡ Electrical Safety
+                  </h4>
+                  <ul className="space-y-2 text-yellow-100 text-sm">
+                    <li>• Proper grounding on all components</li>
+                    <li>• GFCI protection on all circuits</li>
+                    <li>• Enclosed wiring in metal conduit</li>
+                    <li>• Over-current protection sized correctly</li>
+                  </ul>
+                </div>
+              </div>
+
+              <p className="text-gray-200 leading-relaxed mb-4">
+                The most important safety feature? A brain. We don't operate this thing without proper planning, and we never leave it unattended during heating cycles. Murphy's Law loves high-temperature equipment.
+              </p>
+            </section>
+
+            <section id="construction">
+              <h2 className="text-2xl font-bold text-white mb-6">Construction Process</h2>
+              <p className="text-gray-200 leading-relaxed mb-6">
+                Building this thing was a exercise in "measure twice, cut once, swear frequently." The construction took about three weeks of evenings and weekends, plus an embarrassing number of trips to various specialty suppliers.
+              </p>
+
+              <div className="space-y-6">
+                <div>
+                  <h4 className="text-white font-semibold mb-3">Phase 1: The Shell</h4>
+                  <p className="text-gray-200 leading-relaxed mb-3">
+                    Started with a steel enclosure - 16-gauge steel tube, welded end caps, mounting flanges for the quartz tube. Nothing fancy, but solid construction. The key was getting the tube alignment perfect; any misalignment would create hot spots.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="text-white font-semibold mb-3">Phase 2: Heating Elements</h4>
+                  <p className="text-gray-200 leading-relaxed mb-3">
+                    Winding 21 feet of nichrome wire into perfectly spaced coils was... meditative. And frustrating. The coils had to be uniform or you get temperature gradients. We built a simple jig to keep the spacing consistent.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="text-white font-semibold mb-3">Phase 3: Insulation Installation</h4>
+                  <p className="text-gray-200 leading-relaxed mb-3">
+                    This is where things got itchy. Ceramic fiber insulation is amazing stuff, but it's not kind to exposed skin. Full PPE required. We cut everything slightly oversized and compressed it into place for a tight fit.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="text-white font-semibold mb-3">Phase 4: Controls & Wiring</h4>
+                  <p className="text-gray-200 leading-relaxed mb-3">
+                    The control panel was built into a separate NEMA enclosure - never put electronics inside the furnace itself. Learned that lesson from someone else's mistake. All high-voltage wiring in proper conduit with appropriate ratings.
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            <section id="testing">
+              <h2 className="text-2xl font-bold text-white mb-6">Testing & Validation</h2>
+              <p className="text-gray-200 leading-relaxed mb-6">
+                First power-up was... tense. We started conservatively at 200°C and worked our way up in 100°C increments over several days. Each temperature step included a 2-hour soak time to check for any issues.
+              </p>
+
+              <p className="text-gray-200 leading-relaxed mb-4">
+                The validation process included temperature mapping across the heating zone, power consumption measurements, and thermal cycling tests. We also tested the safety systems by deliberately triggering thermocouple failures and emergency shutdowns.
+              </p>
+
+              <div className="bg-gray-900 border border-gray-700 rounded-lg p-6">
+                <h4 className="text-white font-semibold mb-3">Validation Results</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                  <div>
+                    <span className="text-gray-400">Temperature Uniformity:</span>
+                    <span className="text-green-300 ml-2">±5°C over 200mm zone</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-400">Heat-up Time:</span>
+                    <span className="text-blue-300 ml-2">45 min to 1000°C</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-400">Power Consumption:</span>
+                    <span className="text-blue-300 ml-2">2.1kW at 1100°C</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-400">Stability:</span>
+                    <span className="text-green-300 ml-2">±2°C at setpoint</span>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section id="lessons-learned">
+              <h2 className="text-2xl font-bold text-white mb-6">Lessons Learned</h2>
+              <p className="text-gray-200 leading-relaxed mb-6">
+                Every project teaches you something. This one taught us a lot, sometimes the hard way. Here's what we wish we'd known before starting:
+              </p>
+
+              <ul className="space-y-4 text-gray-200 mb-6">
+                <li className="flex items-start gap-3">
+                  <div className="w-1.5 h-1.5 bg-orange-500 rounded-full mt-2 flex-shrink-0"></div>
+                  <span><strong>Thermal expansion is real:</strong> Everything grows when heated. Design for it or watch your carefully machined parts bind up at temperature.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="w-1.5 h-1.5 bg-orange-500 rounded-full mt-2 flex-shrink-0"></div>
+                  <span><strong>Quality thermocouples matter:</strong> Cheap thermocouples drift. At 1100°C, a few degrees of drift can ruin your process.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="w-1.5 h-1.5 bg-orange-500 rounded-full mt-2 flex-shrink-0"></div>
+                  <span><strong>PID tuning takes time:</strong> Don't expect perfect control immediately. Each system is different and requires patient tuning.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="w-1.5 h-1.5 bg-orange-500 rounded-full mt-2 flex-shrink-0"></div>
+                  <span><strong>Safety systems aren't optional:</strong> The one time you skip a safety check is when something will go wrong.</span>
+                </li>
+              </ul>
+            </section>
+
+            <section id="performance">
+              <h2 className="text-2xl font-bold text-white mb-6">Performance & Results</h2>
+              <p className="text-gray-200 leading-relaxed mb-6">
+                After six months of regular use, the furnace has exceeded our expectations. We've successfully run oxidation processes, annealing cycles, and dopant activation steps. The temperature control is solid, and the construction has held up well.
+              </p>
+
+              <p className="text-gray-200 leading-relaxed mb-4">
+                Most importantly, we haven't died. That might sound like a low bar, but given the amount of energy this thing contains, we consider it a significant achievement.
+              </p>
+            </section>
+
+            <section id="improvements">
+              <h2 className="text-2xl font-bold text-white mb-6">Future Improvements</h2>
+              <p className="text-gray-200 leading-relaxed mb-6">
+                No project is ever truly finished. Here's what we'd change for version 2:
+              </p>
+
+              <ul className="space-y-3 text-gray-200">
+                <li className="flex items-start gap-3">
+                  <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+                  <span><strong>Multi-zone heating:</strong> Independent control of three heating zones for better temperature uniformity</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+                  <span><strong>Data logging:</strong> Automated temperature logging with alerts for out-of-range conditions</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+                  <span><strong>Gas control:</strong> Automated inert gas purging for controlled atmosphere processes</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+                  <span><strong>Faster cooling:</strong> Forced air cooling to reduce cycle times</span>
                 </li>
               </ul>
             </section>

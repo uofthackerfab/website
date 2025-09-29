@@ -53,7 +53,7 @@ export default function HackerFabWebsite() {
       description: "High-temperature furnace for semiconductor processing and material synthesis.",
       tech: ["Thermal Processing", "Quartz Tube", "Gas Flow"],
     status: "done",
-    github: "https://github.com/uofthackerfab/tube-furnace",
+    github: "https://x.com/krish_chhajer/status/1958973983425962394",
   writeup: "/writeup/tube-furnace",
     },
     {
@@ -212,7 +212,7 @@ useEffect(() => {
                       <a href={project.writeup}>
                         <Button variant="ghost" size="sm" className="text-gray-400 hover:text-gray-200 hover:bg-gray-700/20">
                           <FileText className="w-4 h-4 mr-2 text-gray-400" />
-                          technical writeup
+post
                         </Button>
                       </a>
                     </div>
