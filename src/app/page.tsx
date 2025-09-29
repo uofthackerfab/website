@@ -62,7 +62,7 @@ export default function HackerFabWebsite() {
       tech: ["Thin Films", "Photoresist", "Motor Control"],
     status: "active",
     github: "https://github.com/uofthackerfab/spincoater",
-  writeup: "/writeup/spincoater",
+  writeup: "https://docs-six-gilt.vercel.app/#/",
     },
     {
       name: "lithography stepper",
@@ -70,7 +70,7 @@ export default function HackerFabWebsite() {
       tech: ["Photolithography", "Optics", "Stepper"],
     status: "research",
     github: "https://github.com/uofthackerfab/lithography-stepper",
-  writeup: "/writeup/lithography-stepper",
+  writeup: "https://docs-six-gilt.vercel.app/#/",
     },
     {
       name: "magnetron sputter",
@@ -78,7 +78,7 @@ export default function HackerFabWebsite() {
       tech: ["Vacuum", "Plasma", "Thin Films"],
     status: "research",
     github: "https://github.com/uofthackerfab/magnetron-sputter",
-  writeup: "/writeup/magnetron-sputter",
+  writeup: "https://docs-six-gilt.vercel.app/#/",
     },
   ]
 
@@ -209,7 +209,11 @@ useEffect(() => {
                           github
                         </Button>
                       </a>
-                      <a href={project.writeup}>
+                      <a 
+                        href={project.writeup}
+                        target={project.writeup.startsWith('http') ? '_blank' : '_self'}
+                        rel={project.writeup.startsWith('http') ? 'noopener noreferrer' : undefined}
+                      >
                         <Button variant="ghost" size="sm" className="text-gray-400 hover:text-gray-200 hover:bg-gray-700/20">
                           <FileText className="w-4 h-4 mr-2 text-gray-400" />
 post
