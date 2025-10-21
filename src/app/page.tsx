@@ -20,14 +20,10 @@ function LiquidGlassPopup({ open, onClose }: { open: boolean, onClose: () => voi
 }
 
 export default function HackerFabWebsite() {
-  const [glitchText, setGlitchText] = useState("hackerfab")
+  const glitchText = "hacker fab"
   // Add simple top phrases
   const topPhrases = [
-    "hacking the hardware_",
     "pushing the limits_",
-    "breaking the barriers_",
-    "fabricating access_",
-    "from schematics to systems_", 
   ]
   const [topPhraseIndex, setTopPhraseIndex] = useState(0)
 
@@ -38,21 +34,11 @@ export default function HackerFabWebsite() {
     }, 12000)
     return () => clearInterval(interval)
   }, [topPhrases.length])
-
-  useEffect(() => {
-    const glitchChars = ["h4ck3rf4b", "hackerfab", "h@ckerfab", "hackerfab"]
-    const glitchInterval = setInterval(() => {
-      setGlitchText(glitchChars[Math.floor(Math.random() * glitchChars.length)])
-    }, 2000)
-    return () => clearInterval(glitchInterval)
-  }, [])
-
   const projects = [
     {
       name: "tube furnace",
       description: "High-temperature furnace for semiconductor processing and material synthesis.",
       tech: ["Thermal Processing", "Quartz Tube", "Gas Flow"],
-    status: "done",
     github: "https://x.com/krish_chhajer/status/1958973983425962394",
   writeup: "/writeup/tube-furnace",
     },
@@ -60,7 +46,6 @@ export default function HackerFabWebsite() {
       name: "spincoater",
       description: "Device for uniform thin film deposition via high-speed spinning.",
       tech: ["Thin Films", "Photoresist", "Motor Control"],
-    status: "active",
     github: "https://github.com/uofthackerfab/spincoater",
   writeup: "https://docs-six-gilt.vercel.app/#/",
     },
@@ -68,7 +53,6 @@ export default function HackerFabWebsite() {
       name: "lithography stepper",
       description: "Precision optical system for photolithography pattern transfer.",
       tech: ["Photolithography", "Optics", "Stepper"],
-    status: "research",
     github: "https://github.com/uofthackerfab/lithography-stepper",
   writeup: "https://docs-six-gilt.vercel.app/#/",
     },
@@ -76,7 +60,6 @@ export default function HackerFabWebsite() {
       name: "magnetron sputter",
       description: "Vacuum deposition system for thin film metal and dielectric coatings.",
       tech: ["Vacuum", "Plasma", "Thin Films"],
-    status: "research",
     github: "https://github.com/uofthackerfab/magnetron-sputter",
   writeup: "https://docs-six-gilt.vercel.app/#/",
     },
@@ -186,9 +169,7 @@ useEffect(() => {
                     <h3 className="text-xl font-bold text-white group-hover:text-green-400 transition-colors">
                       {project.name}
                     </h3>
-                    <div className={`px-2 py-1 text-xs border rounded ${getStatusColor(project.status)}`}>
-                      {project.status}
-                    </div>
+
                   </div>
 
                   <p className="text-gray-300 mb-4 leading-relaxed">{project.description}</p>
@@ -239,10 +220,15 @@ post
             <p>shoot us an email if u have any questions, suggestions, tips or just want to connect :)</p>
           </div>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button className="bg-green-400 text-black hover:bg-green-300 font-semibold px-8 py-3">
-              <Mail className="w-4 h-4 mr-2" />
-              hackerfab@uoft.ca
-            </Button>
+            <a
+              href="mailto:kennyk.guo@mail.utoronto.ca"
+              className="inline-block"
+            >
+              <Button className="bg-green-400 text-black hover:bg-green-300 font-semibold px-8 py-3">
+                <Mail className="w-4 h-4 mr-2" />
+                email
+              </Button>
+            </a>
             <a
               href="https://github.com/uofthackerfab"
               target="_blank"
