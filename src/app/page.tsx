@@ -65,23 +65,6 @@ export default function HackerFabWebsite() {
     },
   ]
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "active":
-        return "text-green-400 border-green-400"
-      case "beta":
-        return "text-yellow-400 border-yellow-400"
-      case "prototype":
-        return "text-blue-400 border-blue-400"
-      case "research":
-        return "text-purple-400 border-purple-400"
-        case "done":
-          return "text-blue-400 border-blue-400"
-      default:
-        return "text-gray-400 border-gray-400"
-    }
-  }
-
   const [popupOpen, setPopupOpen] = useState(false)
 
   // Fix hydration error: generate random lines only on client
