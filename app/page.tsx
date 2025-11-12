@@ -45,7 +45,7 @@ export default function Page() {
         <h2
           className={`${instrumentSerif.className} hero-subtitle mt-10 text-center text-base sm:text-lg tracking-[0.3em] italic`}
         >
-          uoft's hardware hacking collective | building with silicon
+          uoft&rsquo;s hardware hacking collective | building with silicon
         </h2>
       </section>
     </main>

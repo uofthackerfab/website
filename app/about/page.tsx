@@ -13,12 +13,6 @@ const instrumentSerif = Instrument_Serif({
   display: "swap",
 })
 
-const stats = [
-  { label: "members", value: "42" },
-  { label: "labs unlocked", value: "6" },
-  { label: "active builds", value: "9" },
-]
-
 const teamProfiles = [
   {
     name: "Kenny Guo",
@@ -101,22 +95,6 @@ export default function AboutPage() {
           <p className="text-sm text-white/80 leading-relaxed">
             Every build is documented internally and demoed publicly.
           </p>
-        </section>
-
-        <section className="space-y-8">
-          {/* <div className="grid grid-cols-3 gap-6 text-left">
-            {stats.map((stat) => (
-              <div key={stat.label} className="space-y-1">
-                <p className={`${instrumentSerif.className} text-2xl`}>{stat.value}</p>
-                <p className="text-xs uppercase tracking-[0.4em] text-white/60">{stat.label}</p>
-              </div>
-            ))}
-          </div> */}
-          {/* <div className="space-y-4 text-sm text-white/75 leading-relaxed">
-            <p>Weekly design reviews happen every Wednesday night in BA1230.</p>
-            <p>Deep-dive lab access rotates between ECEB cleanrooms and partner shops downtown.</p>
-            <p>Mentor office hours happen bi-weekly, remote friendly.</p>
-          </div> */}
         </section>
 
         <section className="space-y-4 text-sm text-white/75 leading-relaxed">
