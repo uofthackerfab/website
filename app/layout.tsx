@@ -15,9 +15,9 @@ const instrumentSerif = Instrument_Serif({
 })
 
 export const metadata: Metadata = {
-  title: "v0 App",
-  description: "Created with v0",
-  generator: "v0.app",
+  title: "Toronto Hackerfab",
+  description: "imagination is limitless",
+  generator: "torontohackerfab.com",
 }
 
 export default function RootLayout({
