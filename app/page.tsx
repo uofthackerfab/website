@@ -40,12 +40,12 @@ export default function Page() {
         <h1
           className={`${instrumentSerif.className} text-white text-center text-balance font-normal tracking-tight text-7xl`}
         >
-          Toronto Hackerfab 
+          Toronto Hacker Fab
         </h1>
         <h2
           className={`${instrumentSerif.className} hero-subtitle mt-10 text-center text-base sm:text-lg tracking-[0.3em] italic`}
         >
-          uoft&rsquo;s hardware hacking collective | building with silicon
+          imagination is limitless | silicon from scratch
         </h2>
       </section>
     </main>
