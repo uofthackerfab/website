@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef } from "react"
 import { EB_Garamond } from "next/font/google"
 
 const ebGaramond = EB_Garamond({
@@ -10,7 +10,6 @@ const ebGaramond = EB_Garamond({
 })
 
 export function SiliconFabAnimation() {
-    const [scrollProgress, setScrollProgress] = useState(0)
     const containerRef = useRef<HTMLDivElement>(null)
 
     // Refs for animation layers
@@ -41,7 +40,6 @@ export function SiliconFabAnimation() {
 
             // Clamp between 0 and 1
             p = Math.min(Math.max(p, 0), 1)
-            setScrollProgress(p)
 
             // Update transforms directly for performance
             const EXPANSION = {

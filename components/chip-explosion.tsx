@@ -16,8 +16,6 @@ const ChipExplosion = () => {
             // Calculate scroll progress (0.0 to 1.0)
             // We want the progress relative to this component's container
             const container = containerRef.current;
-            const rect = container.getBoundingClientRect();
-            const viewportHeight = window.innerHeight;
 
             // The container is 300vh tall.
             // We want animation to start when container enters (or is at top) and end when it leaves.
@@ -85,12 +83,12 @@ const ChipExplosion = () => {
                         </defs>
 
                         {/* Shadow */}
-                        <g ref={setRef('shadow') as any} transform="translate(0, 200)" style={{ transformOrigin: "center", willChange: "transform, opacity, filter" }}>
+                        <g ref={setRef('shadow')} transform="translate(0, 200)" style={{ transformOrigin: "center", willChange: "transform, opacity, filter" }}>
                             <path d="M0,40 L80,10 L0,-20 L-80,10 Z" fill="#cd853f" />
                         </g>
 
                         {/* GROUP 1: BASE SUBSTRATE */}
-                        <g ref={setRef('base') as any} className="anim-group" style={{ willChange: "transform", transition: "transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94)" }}>
+                        <g ref={setRef('base')} className="anim-group" style={{ willChange: "transform", transition: "transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94)" }}>
                             <path className="fill-[#0a0a0a]/90 stroke-[#e5e5e5] stroke-[1] stroke-linecap-round stroke-linejoin-round vector-effect-non-scaling-stroke" d="M-80,10 L-80,25 L0,55 L0,40 Z" />
                             <path className="fill-[#050505]/90 stroke-[#e5e5e5] stroke-[1] stroke-linecap-round stroke-linejoin-round vector-effect-non-scaling-stroke" d="M0,40 L0,55 L80,25 L80,10 Z" />
                             <path className="fill-[#111]/90 stroke-[#e5e5e5] stroke-[1] stroke-linecap-round stroke-linejoin-round vector-effect-non-scaling-stroke" d="M0,-20 L80,10 L0,40 L-80,10 Z" />
@@ -114,7 +112,7 @@ const ChipExplosion = () => {
                         </g>
 
                         {/* GROUP 2: INTERPOSER */}
-                        <g ref={setRef('sub') as any} className="anim-group" transform="translate(0, -10)" style={{ willChange: "transform", transition: "transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94)" }}>
+                        <g ref={setRef('sub')} className="anim-group" transform="translate(0, -10)" style={{ willChange: "transform", transition: "transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94)" }}>
                             <path className="fill-[#0a0a0a]/90 stroke-[#e5e5e5] stroke-[1] stroke-linecap-round stroke-linejoin-round vector-effect-non-scaling-stroke" d="M-65,5 L-65,8 L0,32 L0,29 Z" />
                             <path className="fill-[#050505]/90 stroke-[#e5e5e5] stroke-[1] stroke-linecap-round stroke-linejoin-round vector-effect-non-scaling-stroke" d="M0,29 L0,32 L65,8 L65,5 Z" />
                             <path className="fill-[#111]/90 stroke-[#e5e5e5] stroke-[1] stroke-linecap-round stroke-linejoin-round vector-effect-non-scaling-stroke" d="M0,-20 L65,5 L0,29 L-65,5 Z" />
@@ -129,7 +127,7 @@ const ChipExplosion = () => {
                         </g>
 
                         {/* GROUP 3: SILICON DIE */}
-                        <g ref={setRef('die') as any} className="anim-group" transform="translate(0, -25)" style={{ willChange: "transform", transition: "transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94)" }}>
+                        <g ref={setRef('die')} className="anim-group" transform="translate(0, -25)" style={{ willChange: "transform", transition: "transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94)" }}>
                             <path className="fill-[#0a0a0a]/90 stroke-[#e5e5e5] stroke-[1] stroke-linecap-round stroke-linejoin-round vector-effect-non-scaling-stroke" d="M-30,0 L-30,3 L0,14 L0,11 Z" />
                             <path className="fill-[#050505]/90 stroke-[#e5e5e5] stroke-[1] stroke-linecap-round stroke-linejoin-round vector-effect-non-scaling-stroke" d="M0,11 L0,14 L30,3 L30,0 Z" />
                             <path className="fill-[#1a1a1a]/95 stroke-[#cd853f] stroke-[0.8] stroke-linecap-round stroke-linejoin-round" d="M0,-11 L30,0 L0,11 L-30,0 Z" />
@@ -147,7 +145,7 @@ const ChipExplosion = () => {
                         </g>
 
                         {/* GROUP 4: RETENTION FRAME */}
-                        <g ref={setRef('ring') as any} className="anim-group" transform="translate(0, -40)" style={{ willChange: "transform", transition: "transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94)" }}>
+                        <g ref={setRef('ring')} className="anim-group" transform="translate(0, -40)" style={{ willChange: "transform", transition: "transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94)" }}>
                             <path className="fill-[#0a0a0a]/90 stroke-[#e5e5e5] stroke-[1] stroke-linecap-round stroke-linejoin-round vector-effect-non-scaling-stroke" d="M-70,5 L-70,8 L0,35 L0,32 Z" />
                             <path className="fill-[#050505]/90 stroke-[#e5e5e5] stroke-[1] stroke-linecap-round stroke-linejoin-round vector-effect-non-scaling-stroke" d="M0,32 L0,35 L70,8 L70,5 Z" />
                             <path className="fill-[#111]/90 stroke-[#e5e5e5] stroke-[1] stroke-linecap-round stroke-linejoin-round vector-effect-non-scaling-stroke" fillRule="evenodd"
@@ -157,7 +155,7 @@ const ChipExplosion = () => {
                         </g>
 
                         {/* GROUP 5: HEAT SPREADER */}
-                        <g ref={setRef('lid') as any} className="anim-group" transform="translate(0, -55)" style={{ willChange: "transform", transition: "transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94)" }}>
+                        <g ref={setRef('lid')} className="anim-group" transform="translate(0, -55)" style={{ willChange: "transform", transition: "transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94)" }}>
                             <path className="fill-[#0a0a0a]/90 stroke-[#e5e5e5] stroke-[1] stroke-linecap-round stroke-linejoin-round vector-effect-non-scaling-stroke" d="M-70,5 L-70,12 L0,39 L0,32 Z" />
                             <path className="fill-[#050505]/90 stroke-[#e5e5e5] stroke-[1] stroke-linecap-round stroke-linejoin-round vector-effect-non-scaling-stroke" d="M0,32 L0,39 L70,12 L70,5 Z" />
                             <path className="fill-[#111]/90 stroke-[#e5e5e5] stroke-[1] stroke-linecap-round stroke-linejoin-round vector-effect-non-scaling-stroke" d="M0,-22 L70,5 L0,32 L-70,5 Z" />
