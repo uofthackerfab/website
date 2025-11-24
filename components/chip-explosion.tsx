@@ -15,7 +15,6 @@ const ChipExplosion = () => {
 
             // Calculate scroll progress (0.0 to 1.0)
             // We want the progress relative to this component's container
-            const container = containerRef.current;
 
             // The container is 300vh tall.
             // We want animation to start when container enters (or is at top) and end when it leaves.
