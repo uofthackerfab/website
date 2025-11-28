@@ -194,4 +194,13 @@
   .team-overlay__panel {
     animation: team-overlay-panel 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari and Opera */
+  }
 }

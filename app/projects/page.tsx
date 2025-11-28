@@ -17,7 +17,10 @@ type ProjectDetail = {
   summary: string
   sections: {
     heading: string
-    body: string
+    body?: string
+    items?: string[]
+    image?: string
+    links?: { text: string; url: string }[]
   }[]
   image?: {
     src: string
@@ -93,23 +96,45 @@ const projectDetails: Record<string, ProjectDetail> = {
       },
       {
         heading: "specifications",
-        body: "Spin speed: ~600–3000 rpm (Arctic P8 Max @ 12 V under load)\n\nSpeed control: Dual potentiometer (coarse: full range, fine: ±5% trim), PWM output from Arduino at 490 Hz\n\nSpeed resolution: ~30–60 rpm per fine-adjust step (based on the PWM-to-RPM mapping we measured)\n\nJob duration: 1–300 s, adjustable in 1 s increments\n\nSubstrate size: Up to 50 mm diameter (tested with 1×1 inch glass slides and 2 inch wafers)\n\nPower: 12 V DC input, ~0.12–0.20 A at steady 3000 rpm (≈2.4 W)\n\nController: Arduino Uno + I2C 1602 LCD + 4×4 membrane keypad\n\nSafety: Automatic spin-down on timeout, capped duty cycle at 85% to avoid overshoot, optional printed lid to contain splatter",
+        items: [
+          "Spin speed: ~600–3000 rpm (Arctic P8 Max @ 12 V under load)",
+          "Speed control: Dual potentiometer (coarse: full range, fine: ±5% trim), PWM output from Arduino at 490 Hz",
+          "Speed resolution: ~30–60 rpm per fine-adjust step (based on the PWM-to-RPM mapping we measured)",
+          "Job duration: 1–300 s, adjustable in 1 s increments",
+          "Substrate size: Up to 50 mm diameter (tested with 1×1 inch glass slides and 2 inch wafers)",
+          "Power: 12 V DC input, ~0.12–0.20 A at steady 3000 rpm (≈2.4 W)",
+          "Controller: Arduino Uno + I2C 1602 LCD + 4×4 membrane keypad",
+          "Safety: Automatic spin-down on timeout, capped duty cycle at 85% to avoid overshoot, optional printed lid to contain splatter",
+        ],
       },
       {
         heading: "bill of materials",
-        body: "Controller / UI:\nArduino Uno, I2C 1602 LCD, 4×4 membrane keypad, 2× 10 kΩ potentiometers (speed + time / coarse + fine)\n\nDrive:\nArctic P8 Max 12 V PC fan (or any 12 V brushless PC fan with similar RPM), Motor driver (logic-level MOSFET or driver module), 2N2222 transistor (for keypad / LCD backlight control if needed)\n\nPower:\n12 V DC supply (at least 0.5 A recommended)\n\nMisc:\nBreadboard or perfboard, wires, solder, 3D printed housing and chuck",
+        items: [
+          "Controller / UI: Arduino Uno, I2C 1602 LCD, 4×4 membrane keypad, 2× 10 kΩ potentiometers (speed + time / coarse + fine)",
+          "Drive: Arctic P8 Max 12 V PC fan (or any 12 V brushless PC fan with similar RPM), Motor driver (logic-level MOSFET or driver module), 2N2222 transistor (for keypad / LCD backlight control if needed)",
+          "Power: 12 V DC supply (at least 0.5 A recommended)",
+          "Misc: Breadboard or perfboard, wires, solder, 3D printed housing and chuck",
+        ],
       },
       {
         heading: "fan preparation",
         body: "The fan we used for this build is the Arctic P8 Max. It can hit around 3000 rpm and supports 5 to 12 volts, which makes it solid for a spin coater.\n\nTo get access to the motor, we had to take it apart, but this fan isn't like the usual ones where you just peel back the sticker. The teardown is a bit more involved, and you need to be careful. The first time we tried it, we accidentally tore the ground connection right off the 4-pin header.\n\nThe way we do it now:\n\nHold the fan with the sticker side facing away from you and the open side toward you. Put both thumbs on the fan hub (or the blades near the hub) and push with even pressure. Support the frame so you are not flexing the PCB or yanking on the wires.\n\nIf you line it up properly, the hub pops out cleanly without ripping the 4-pin header.\n\nAfter that, pull off the fan blades and lightly sand the round motor cap. This is the surface that will actually spin and that you will mount your printed adapter onto, so you want it flat and clean.\n\nThis next part is optional, but if you do not have M3s longer than 50 mm, mounting everything gets annoying fast. The easier workaround is to trim the fan housing. Cut the outer frame roughly in half so only the motor housing and center supports are left.\n\nThat gives you a much lower profile, which makes it easier to bolt the fan down and keep it rigid without extra-long screws.",
+        image: "/spincoater-fan-prep.png",
       },
       {
         heading: "housing assembly",
-        body: "Pretty self explanatory, refer to the printable for the full spec (BirdBrain's design):\n\nhttps://www.printables.com/model/658943-diy-spin-coater/files",
+        body: "Pretty self explanatory, refer to the printable for the full spec (BirdBrain's design):",
+        links: [
+          {
+            text: "View Files on Printables",
+            url: "https://www.printables.com/model/658943-diy-spin-coater/files",
+          },
+        ],
       },
       {
         heading: "circuitry",
         body: "The high level control loop is:\n\nPots → Arduino analog inputs (read speed / time setpoints)\n\nKeypad → Arduino digital inputs (start/stop, preset select)\n\nArduino → PWM output pin → motor driver / MOSFET → 12 V fan\n\nFan tach wire (optional) → Arduino interrupt pin for RPM feedback\n\nArduino → I2C → LCD for UI",
+        image: "/spincoater-cct.png",
       },
       {
         heading: "what's next",
@@ -186,7 +211,7 @@ export default function ProjectsPage() {
                     openProject(project.slug)
                   }
                 }}
-                className={`group relative flex flex-col gap-3 border-l border-white/30 pl-6 transition-all duration-300 ease-out ${isInteractive
+                className={`group relative flex flex-col gap-3 border-l border-white/30 pl-6 py-8 transition-all duration-300 ease-out ${isInteractive
                   ? "cursor-pointer hover:-translate-y-1 hover:border-white/70 hover:bg-white/5 hover:shadow-[0_15px_45px_rgba(0,0,0,0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
                   : ""
                   }`}
@@ -251,7 +276,7 @@ export default function ProjectsPage() {
               close
             </button>
             <div className="relative z-10 mx-auto mt-6 flex w-full max-w-5xl flex-1 flex-col gap-10 overflow-hidden md:flex-row md:gap-12">
-              <div className="flex max-h-full flex-1 flex-col gap-6 overflow-y-auto pr-2 text-sm leading-relaxed text-white/80">
+              <div className="flex max-h-full flex-1 flex-col gap-6 overflow-y-auto pr-2 text-sm leading-relaxed text-white/80 scrollbar-hide">
                 <p className="text-xs uppercase tracking-[0.5em] text-white/50">{activeProject.status}</p>
                 <h2 className={`${instrumentSerif.className} text-4xl font-normal tracking-tight text-white`}>
                   {activeProject.title}
@@ -264,10 +289,43 @@ export default function ProjectsPage() {
                 {activeProject.sections.map((section) => (
                   <div key={section.heading} className="space-y-2">
                     <p className="text-xs uppercase tracking-[0.45em] text-white/45">{section.heading}</p>
+                    {section.image && (
+                      <div className="relative aspect-video w-full overflow-hidden rounded-sm border border-white/10 bg-white/5 my-4">
+                        <Image
+                          src={section.image}
+                          alt={section.heading}
+                          fill
+                          className="object-contain"
+                        />
+                      </div>
+                    )}
                     <div className="space-y-4">
-                      {section.body.split('\n\n').map((paragraph, idx) => (
+                      {section.body && section.body.split('\n\n').map((paragraph, idx) => (
                         <p key={idx}>{paragraph}</p>
                       ))}
+                      {section.items && (
+                        <ul className="list-disc pl-4 space-y-2 marker:text-white/40">
+                          {section.items.map((item, idx) => (
+                            <li key={idx} className="pl-1">{item}</li>
+                          ))}
+                        </ul>
+                      )}
+                      {section.links && (
+                        <div className="flex flex-wrap gap-3 pt-2">
+                          {section.links.map((link) => (
+                            <a
+                              key={link.url}
+                              href={link.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-2 border border-white/20 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.2em] text-white/70 transition hover:border-white/40 hover:bg-white/10 hover:text-white"
+                            >
+                              {link.text}
+                              <span aria-hidden="true">↗</span>
+                            </a>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   </div>
                 ))}
