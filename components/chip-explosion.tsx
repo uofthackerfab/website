@@ -126,8 +126,8 @@ const ChipExplosion = () => {
                             </filter>
                         </defs>
 
-                        {/* Shadow */}
-                        <g ref={setRef('shadow')} transform="translate(0, 200)" style={{ transformOrigin: "center", willChange: "transform, opacity", filter: 'blur(8px)' }}>
+                        {/* Shadow - Optimized: Removed blur filter for performance */}
+                        <g ref={setRef('shadow')} transform="translate(0, 200)" style={{ transformOrigin: "center", willChange: "transform, opacity" }}>
                             <path d="M0,40 L80,10 L0,-20 L-80,10 Z" fill="#cd853f" />
                         </g>
 
@@ -197,7 +197,7 @@ const ChipExplosion = () => {
                                     strokeWidth="1.5"
                                     strokeDasharray="300"
                                     strokeDashoffset="300"
-                                    style={{ willChange: 'stroke-dashoffset', filter: 'url(#grain-glow)' }}
+                                    style={{ willChange: 'stroke-dashoffset' }}
                                 />
                                 {/* The Dot at center */}
                                 <circle cx="0" cy="0" r="3" fill="#eca74e" opacity="0.9" />

@@ -15,7 +15,7 @@ const instrumentSerif = Instrument_Serif({
 })
 
 export const metadata: Metadata = {
-  title: "Toronto Hacker Fab",
+  title: "Hacker Fab | Toronto",
   description: "imagination is limitless",
   generator: "torontohackerfab.com",
 }
