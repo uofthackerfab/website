@@ -10,10 +10,12 @@
   },
   "dependencies": {
     "@paper-design/shaders-react": "^0.0.63",
+    "@types/katex": "^0.16.7",
     "@vercel/analytics": "^1.5.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "geist": "^1.5.1",
+    "katex": "^0.16.27",
     "lucide-react": "^0.553.0",
     "next": "^16.0.10",
     "react": "^19.0.0",
