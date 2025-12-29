@@ -24,6 +24,8 @@ type ProjectDetail = {
     table?: { label: string; value: string; link?: string }[]
     latex?: string
     image?: string
+
+    images?: (string | { src: string; className?: string; aspect?: string; containerClassName?: string })[]
     links?: { text: string; url: string }[]
   }[]
   image?: {
@@ -82,8 +84,10 @@ const projectDetails: Record<string, ProjectDetail> = {
         body: "On the right (silicon dioxide) is a high-quality dielectric material that serves as the gate oxide in the nmos transistor structure. This chemical reaction only occurs at high temperatures between 900°C and 1200°C, which our tube furnace reaches by resistive heating.\n\nThe resulting SiO₂ layer thickness is controlled by temperature and oxidation time according to the deal-grove model, allowing us to grow precise gate oxide layers in the 10-100 nm range required for functional transistors.\n\nBeyond gate oxide formation, thermal oxidation also enables field oxide isolation, passivation layers, and masking for subsequent doping steps in the NMOS fabrication process.",
       },
       {
+
         heading: "how we got started",
         body: "We got started by watching a few YouTube videos. Without them, it probably would’ve taken much longer to figure out proper build. As much detail as the video went into, it didn’t go into everything.\n\nThe BOM was missing, so we reverse image searched every piece of material we saw in the video. For the proper metal box, it turned out that cutting through metal was not that easy. The video uses a welding and machining setup, which we did not have.\n\nUnfortunately U of T doesn’t support builders, and the machining shop manager did not like our tube furnace idea. We ended up buying a carbon steel box, and through a series of drilling holes with metal drills, metal cutters, and sanders, we slowly chipped away a circular opening for a glass tube to be fit in, aka. the hacky way.\n\nNote for the electronics, we decided to use a programmable PID controller instead of the Arduino circuit, which we will detail later.",
+        images: ["/tube.png", "/hole.png",],
       },
       {
         heading: "bill of materials",
@@ -114,6 +118,7 @@ const projectDetails: Record<string, ProjectDetail> = {
       },
       {
         body: "The assembly of the furnace was simple with the BOM. Following the video’s steps through the glass tube assembly with the cement, and nichrome wire, we then made holes near the top of the tube furnace, using the same hacky way that we did for the glass tube.\n\nNow the metal box has two openings on the sides, and two openings at the top. IT IS IMPORTANT THAT THESE HOLES AT THE TOP ARE SPACED WELL APART. Otherwise electrical arcing will happen, which you do not want to see. We ended up using ceramic tubing at the entrances for additional insulation when routing the wires through the exits of the metal box.\n\nIn a normal North American building, a standard 120 V outlet is guaranteed to be protected by a building breaker (or fuse) upstream. We properly bonded our furnace to the AC input’s PE (protective earth) green wire to the bottom of the metal box using a metal plate and metal screw. This provides a layer of safety incase, a short occurs. Additional safety can be achieved using a fuse, and a GFCI-installed outlet.",
+        images: ["/insulation.png", "/welding_glue.png"],
       },
       {
         body: "Now, it’s important next, that you consider where the nichrome wire could short and touch the metal box. Preventing a short mitigates electrical danger before it occurs. The nichrome wire could short near the entrances (closest to the metal box sides), and near the top (through the holes). The nichrome wire could also short with itself.\n\nFor shorts near the metal sides, you should unwind the corresponding nichrome wire wrapping if they’re too close to it’s closest metal side opening, and generally bend them away from the sides of the metal box. You should also avoid direct contact with the actual nichrome wounding of the glass tube, keep them away from this. We used the insulation to hold the the nichrome wire in place.\n\nWith copper wire, you should twist and wind to connect the copper to the nichrome, and then place the corresponding electrical tubing over it. Make sure that the electrical tubing is well insulated, a distance away from the glass tube, and it’s not close to the nichrome. Nichrome melts rubber, its much much more resistive than copper, and we learned it the hard way, saying goodbye to one of our Wago connectors. Now you know why your cables use copper wiring inside. After that step, cleanly route both copper wires through the top two holes. Use insulation to hold the copper wires in place now.\n\nThe protection both ceramics and rubber insulation makes it much harder for shorts to occur.",
@@ -168,6 +173,7 @@ const projectDetails: Record<string, ProjectDetail> = {
       {
         heading: "Testing",
         body: "After setting everything up, you should test in the following manner. First start off by testing the PID controller, WITHOUT the furnace plugged in, only the controller cable. We suggest using an outlet extender with a switch to turn on/off both components for easy and safe testing.\n\nWhat you should see:\n\nPV (top) = current temp (measured by thermocouple)\n\nSV (bottom) should start near the starting value and increase gradually, not jump\n\nIf you see this, you got the PID controller working! Unplug the controller. The settings and state will be saved internally. With the outlet extender off, plug in both the controller cable, and the furnace cable. Now for the moment of truth, turn on the outlet extender. Your furnace should be heating up now. This is where you should be the most careful. The nichrome wire will glow red at times, only for a short bit, before the current decreases as it’s modulated by the PID controller. The cement should protect the glass tube from any heat damage.",
+        images: [{ src: "/final_setup.png", className: "rotate-90 scale-[1.34]", containerClassName: "max-w-sm mx-auto" }],
       },
       {
         heading: "Remarks",
@@ -402,6 +408,27 @@ export default function ProjectsPage() {
                       {section.body && section.body.split('\n\n').map((paragraph, pIdx) => (
                         <p key={pIdx}>{paragraph}</p>
                       ))}
+                      {section.images && (
+                        <div className={`grid gap-4 my-4 ${section.images.length === 1 ? 'grid-cols-1' : 'grid-cols-2'}`}>
+                          {section.images.map((imgItem, idx) => {
+                            const src = typeof imgItem === 'string' ? imgItem : imgItem.src
+                            const className = typeof imgItem === 'string' ? "" : imgItem.className
+                            const aspect = typeof imgItem === 'string' ? "aspect-[3/4]" : (imgItem.aspect || "aspect-[3/4]")
+                            const containerClassName = typeof imgItem === 'string' ? "" : (imgItem.containerClassName || "")
+                            return (
+                              <div key={idx} className={`relative w-full ${aspect} ${containerClassName} overflow-hidden rounded-sm border border-white/10 bg-white/5`}>
+                                <Image
+                                  src={src}
+                                  alt={`${section.heading || ""} image ${idx + 1}`}
+                                  fill
+                                  sizes="33vw"
+                                  className={`object-cover ${className}`}
+                                />
+                              </div>
+                            )
+                          })}
+                        </div>
+                      )}
                       {section.latex && (
                         <div
                           className="my-4 flex justify-center py-4 bg-white/5 border border-white/10 rounded-sm"
