@@ -486,6 +486,7 @@ export default function ProjectsPage() {
                               fill
                               sizes="(min-width: 768px) 320px, 80vw"
                               className={imageData.className ?? defaultImage.className}
+                              unoptimized={imageData.src.endsWith('.gif')}
                             />
                             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/10 to-black/40" />
                             <figcaption className="absolute left-6 bottom-6 text-[11px] uppercase tracking-[0.45em] text-white/70">
