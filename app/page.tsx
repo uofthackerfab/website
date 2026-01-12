@@ -34,9 +34,9 @@ export default function Page() {
               </Link>
             </li>
             <li>
-              <Link className="hover:text-white/70 transition-colors" href="/join">
+              <a className="hover:text-white/70 transition-colors" href="https://form.typeform.com/to/WDKMFCuC" target="_blank" rel="noopener noreferrer">
                 join
-              </Link>
+              </a>
             </li>
           </ul>
         </nav>
