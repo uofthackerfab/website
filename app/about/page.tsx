@@ -16,7 +16,7 @@ const instrumentSerif = Instrument_Serif({
 const teamProfiles = [
   {
     name: "Kenny Guo",
-    role: "Operations",
+    role: "Co-Founder",
     focus: "",
     photo: "/1750374255916.jpeg",
     linkedin: "https://www.linkedin.com/in/kennyguo",
@@ -24,7 +24,7 @@ const teamProfiles = [
   },
   {
     name: "Krish Chhajer",
-    role: "Technical",
+    role: "Co-Founder",
     focus: "",
     photo: "/1746147185644.jpeg",
     linkedin: "https://www.linkedin.com/in/krish-chhajer/",
@@ -32,7 +32,7 @@ const teamProfiles = [
   },
   {
     name: "Luthira Abeykoon",
-    role: "Product",
+    role: "Co-Founder",
     focus: "",
     photo: "/1755988168159.jpeg",
     linkedin: "https://www.linkedin.com/in/luthiraa/",
@@ -61,9 +61,8 @@ export default function AboutPage() {
       <div className="absolute inset-0 -z-10 bg-black/60 mix-blend-soft-light" />
 
       <div
-        className={`relative z-10 max-w-2xl mx-auto px-6 py-16 md:py-24 space-y-14 transition duration-300 ${
-          teamOpen ? "scale-[0.99] blur-[2px] opacity-80" : ""
-        }`}
+        className={`relative z-10 max-w-2xl mx-auto px-6 py-16 md:py-24 space-y-14 transition duration-300 ${teamOpen ? "scale-[0.99] blur-[2px] opacity-80" : ""
+          }`}
       >
         <div>
           <Link
