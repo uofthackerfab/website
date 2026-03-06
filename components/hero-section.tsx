@@ -24,10 +24,10 @@ export function HeroSection() {
             // Calculate blur: 0 at top, 20px at maxScroll (intense blur as it passes 'camera')
             const blur = (scrollY / maxScroll) * 20
 
-            // Calculate scale: 1 at top, massive expansion at maxScroll ("zoom all the way")
-            // Using cubic power for that "accelerating into the screen" feel
+            // Calculate scale: 1 at top, slight expansion at maxScroll
+            // Reduced expansion factor so it doesn't zoom out all the way
             const progress = Math.min(1, scrollY / maxScroll)
-            const scale = 1 + (Math.pow(progress, 3) * 80)
+            const scale = 1 + (Math.pow(progress, 2) * 1.5)
 
             ref.current.style.opacity = opacity.toString()
             ref.current.style.filter = `blur(${blur}px)`

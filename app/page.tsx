@@ -42,17 +42,6 @@ export default function Page() {
         </nav>
       </header>
 
-      {/* Hero Content - Fixed overlay so it stays in place (or scrolls away if desired, but user said 'stay inplace') 
-          If user wants the PAGE to stay in place, maybe they mean the content too?
-          Let's make the Hero content fixed for now, so it overlays the animation.
-          But if it's fixed, it will never go away.
-          Usually "animate when you scroll" implies the animation happens.
-          Let's make the Hero content absolute at the top, so it scrolls away as you scroll down, revealing the chip?
-          OR, if the user wants "stick to the middle", they mean the CHIP.
-          I've made the CHIP fixed.
-          The Hero content should probably scroll away to let the user see the chip clearly.
-          Let's keep Hero absolute top-0.
-      */}
       {/* Hero Content - Animated */}
       <HeroSection />
     </main>
