@@ -348,7 +348,7 @@ export default function ProjectsPage() {
           })}
         </section>
 
-        <footer className="flex flex-col items-center gap-3 text-sm text-white/70">
+        {/* <footer className="flex flex-col items-center gap-3 text-sm text-white/70">
           <span>Shipping something wild? We want to hear about it.</span>
           <Link
             href="/join"
@@ -356,7 +356,7 @@ export default function ProjectsPage() {
           >
             join a build week
           </Link>
-        </footer>
+        </footer> */}
       </div>
 
       {activeProject && (
