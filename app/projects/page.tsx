@@ -13,6 +13,7 @@ const instrumentSerif = Instrument_Serif({
   display: "swap",
 })
 
+
 type ProjectDetail = {
   title: string
   status: string
