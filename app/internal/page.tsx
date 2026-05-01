@@ -6,11 +6,16 @@ export const metadata = {
   },
 };
 
+const docsUrl =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3002/#/"
+    : "https://docs.torontohackerfab.com/#/";
+
 export default function InternalDocsPage() {
   return (
     <div className="w-full h-screen">
       <iframe 
-        src="https://docs.torontohackerfab.com/#/" 
+        src={docsUrl} 
         className="w-full h-full border-0"
         title="Internal Hacker Fab Docs"
       />
