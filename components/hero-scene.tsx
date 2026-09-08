@@ -137,7 +137,7 @@ export function HeroScene({ children }: { children: React.ReactNode }) {
         >
           <div
             ref={stageRef}
-            className="relative w-[min(92vw,820px)] aspect-square flex items-center justify-center translate-y-[6vh] md:translate-y-[4vh] will-change-transform"
+            className="relative w-[min(92vw,820px,72vh)] aspect-square flex items-center justify-center translate-y-[6vh] md:translate-y-[4vh] will-change-transform"
           >
             <svg
               ref={svgRef}
