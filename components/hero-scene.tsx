@@ -8,9 +8,8 @@ import React, { useEffect, useRef } from "react"
   A 200vh section with a sticky viewport inside it. As the reader scrolls
   through the section, the packaged chip pulls apart layer by layer and the
   die heats up: the wafer under the die goes from cold silicon to ember, the
-  way a wafer glows inside a tube furnace during oxidation. Two process
-  callouts draw in beside the die. The hero copy fades and recedes over the
-  first part of the scroll.
+  way a wafer glows inside a tube furnace during oxidation. The hero copy
+  fades and recedes over the first part of the scroll.
 */
 
 const EXPANSION = { base: 80, sub: 40, die: -10, ring: -60, lid: -120 }
@@ -98,22 +97,6 @@ export function HeroScene({ children }: { children: React.ReactNode }) {
       if (L.pool) {
         L.pool.style.opacity = (0.35 + heat * 0.45).toString()
         L.pool.style.transform = `translate(0px, 200px) scale(${0.95 + p * 0.25})`
-      }
-
-      // Callouts draw in once the copy has cleared. They need horizontal
-      // room, so narrow viewports and the static reduced-motion hero skip them.
-      const drawP = wide && !reduceMotion ? Math.min(1, Math.max(0, (p - 0.4) / 0.3)) : 0
-      const drawEase = 1 - Math.pow(1 - drawP, 3)
-      const len = 320
-      if (L.leftPath) L.leftPath.style.strokeDashoffset = (len * (1 - drawEase)).toString()
-      if (L.rightPath) L.rightPath.style.strokeDashoffset = (len * (1 - drawEase)).toString()
-      if (L.leftText) {
-        L.leftText.style.opacity = drawEase.toString()
-        L.leftText.style.transform = `translate(${-16 * (1 - drawEase)}px, 0px)`
-      }
-      if (L.rightText) {
-        L.rightText.style.opacity = drawEase.toString()
-        L.rightText.style.transform = `translate(${16 * (1 - drawEase)}px, 0px)`
       }
 
       // Hero copy recedes over the first 45% of travel.
@@ -254,80 +237,6 @@ export function HeroScene({ children }: { children: React.ReactNode }) {
                   <path className="fill-[#121212]/95 stroke-[#ff9a5c] stroke-[0.8]" d="M0,-3 L8,0 L0,3 L-8,0 Z" />
                 </g>
 
-                {/* Left callout: gate oxide */}
-                <g style={{ pointerEvents: "none" }}>
-                  <path
-                    ref={setRef("leftPath")}
-                    d="M 0,0 L -90,0 L -120,75 L -220,75"
-                    fill="none"
-                    stroke="#ff9a5c"
-                    strokeWidth="1.2"
-                    strokeDasharray="320"
-                    strokeDashoffset="320"
-                    style={{ willChange: "stroke-dashoffset" }}
-                  />
-                  <circle cx="0" cy="0" r="2.4" fill="#ffe4c4" />
-                  <g ref={setRef("leftText")} transform="translate(-16, 0)" style={{ opacity: 0, willChange: "transform, opacity" }}>
-                    <text
-                      x="-222"
-                      y="68"
-                      textAnchor="end"
-                      fill="#ededed"
-                      fontFamily="var(--font-hack), monospace"
-                      fontSize="11"
-                      fontWeight="700"
-                    >
-                      SiO₂ gate oxide
-                    </text>
-                    <text
-                      x="-222"
-                      y="84"
-                      textAnchor="end"
-                      fill="#a1a1a1"
-                      fontFamily="var(--font-hack), monospace"
-                      fontSize="9"
-                    >
-                      grown in the tube furnace
-                    </text>
-                  </g>
-                </g>
-
-                {/* Right callout: metal contacts */}
-                <g style={{ pointerEvents: "none" }}>
-                  <path
-                    ref={setRef("rightPath")}
-                    d="M 0,0 L 90,0 L 120,75 L 220,75"
-                    fill="none"
-                    stroke="#ff9a5c"
-                    strokeWidth="1.2"
-                    strokeDasharray="320"
-                    strokeDashoffset="320"
-                    style={{ willChange: "stroke-dashoffset" }}
-                  />
-                  <g ref={setRef("rightText")} transform="translate(16, 0)" style={{ opacity: 0, willChange: "transform, opacity" }}>
-                    <text
-                      x="222"
-                      y="68"
-                      textAnchor="start"
-                      fill="#ededed"
-                      fontFamily="var(--font-hack), monospace"
-                      fontSize="11"
-                      fontWeight="700"
-                    >
-                      Al contacts
-                    </text>
-                    <text
-                      x="222"
-                      y="84"
-                      textAnchor="start"
-                      fill="#a1a1a1"
-                      fontFamily="var(--font-hack), monospace"
-                      fontSize="9"
-                    >
-                      sputtered, then patterned
-                    </text>
-                  </g>
-                </g>
               </g>
 
               {/* Retention frame */}
