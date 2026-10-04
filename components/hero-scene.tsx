@@ -141,13 +141,14 @@ export function HeroScene({ children }: { children: React.ReactNode }) {
         >
           <div
             ref={stageRef}
-            className="relative w-[min(92vw,820px,72vh)] aspect-square flex items-center justify-center translate-y-[6vh] md:translate-y-[4vh]"
+            className="hero-stage relative w-[min(92vw,820px,72vh)] aspect-square flex items-center justify-center translate-y-[6vh] md:translate-y-[4vh]"
           >
             <svg
               ref={svgRef}
               viewBox="-200 -250 400 500"
               className="w-full h-full overflow-visible"
-              style={{ opacity: 0.35, transform: "scale(0.72) rotate(-8deg)" }}
+              // Matches the scripted state at the top of the page, so nothing jumps on load.
+              style={{ opacity: 0.7, transform: "scale(0.84) rotate(-6deg)" }}
             >
               <defs>
                 <pattern

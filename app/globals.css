@@ -178,6 +178,18 @@
   will-change: opacity, transform;
 }
 
+/* Resting position of the chip before any script runs. Mirrors the shift
+   applied in hero-scene.tsx at the top of the page (24vw right on wide
+   screens, 30vh up on narrow ones) so the first paint already matches. */
+.hero-stage {
+  transform: translate(0, -30vh);
+}
+@media (min-width: 900px) {
+  .hero-stage {
+    transform: translate(24vw, -2vh);
+  }
+}
+
 /* Build log pop-out, styled after the original site's overlay */
 .build-log-trigger {
   color: var(--text-primary);
@@ -223,8 +235,8 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at top, rgba(255, 255, 255, 0.1), transparent 55%),
-    rgba(0, 0, 0, 0.85);
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.06), transparent 55%),
+    rgba(8, 8, 8, 0.96);
   backdrop-filter: blur(60px);
   -webkit-backdrop-filter: blur(60px);
   opacity: 0;
@@ -263,11 +275,23 @@
   min-height: 0;
   overflow-y: auto;
   overscroll-behavior: contain;
-  padding: 24px 0 64px;
-  scrollbar-width: none;
+  padding: 24px 0 96px;
+  /* A slim visible scrollbar, plus a fade at the bottom edge, so it is
+     obvious the post continues below. */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.35) transparent;
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 96px), transparent);
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 96px), transparent);
 }
 .build-log__scroll::-webkit-scrollbar {
-  display: none;
+  width: 6px;
+}
+.build-log__scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 3px;
+}
+.build-log__scroll::-webkit-scrollbar-track {
+  background: transparent;
 }
 @media (min-width: 640px) {
   .build-log__panel {
