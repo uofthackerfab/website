@@ -108,11 +108,7 @@ export default function Page() {
             <ProjectList projects={projects} />
             <p className="t-body">
               Alongside the tools, we are writing a process proposal built around one question:
-              when a multi-step process goes wrong, how do we find and fix the problem? Every
-              experiment gets documented.
-            </p>
-            <p className="t-body">
-              Side projects: an optical processing unit, and NV-diamond quantum sensing.
+              when a multi-step process goes wrong, how do we find and fix the problem?
             </p>
           </Section>
 

@@ -54,7 +54,9 @@ export function HeroScene({ children }: { children: React.ReactNode }) {
       const L = layers.current
 
       // Entrance: chip scales up and settles in the first 15% of travel.
-      const entrance = Math.min(p / 0.15, 1)
+      // The copy fades out first (0 to 8% of travel); the chip only starts
+      // moving toward centre once the copy is gone, so the two never overlap.
+      const entrance = Math.min(Math.max((p - 0.08) / 0.16, 0), 1)
       const ease = 1 - Math.pow(1 - entrance, 4)
 
       if (svgRef.current) {
@@ -101,10 +103,10 @@ export function HeroScene({ children }: { children: React.ReactNode }) {
         L.pool.setAttribute("transform", `translate(0 200) scale(${0.95 + p * 0.25})`)
       }
 
-      // Hero copy recedes over the first 45% of travel.
+      // Hero copy fades out quickly, over the first 8% of travel.
       if (copyRef.current) {
-        const c = reduceMotion ? 0 : Math.min(1, p / 0.45)
-        const cEase = c * c
+        const c = reduceMotion ? 0 : Math.min(1, p / 0.08)
+        const cEase = 1 - Math.pow(1 - c, 2)
         copyRef.current.style.opacity = (1 - cEase).toString()
         copyRef.current.style.transform = `translateY(${-cEase * 48}px)`
         copyRef.current.style.pointerEvents = c >= 1 ? "none" : "auto"

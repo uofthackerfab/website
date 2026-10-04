@@ -6,32 +6,52 @@ import { getPost } from "@/lib/posts"
 
 export type Project = { name: string; status: string; detail: string; post?: string }
 
+const FADE_MS = 320
+
 /*
-  Project rows. Rows with a build log open it in a pop-out panel over the
-  page rather than navigating away. The panel's URL hash (#tube-furnace)
-  makes it linkable, and the standalone /blog pages remain for search.
+  Project rows. Rows with a build log open it in a full-screen pop-out over
+  the page, styled like the original site, rather than navigating away.
+  The URL hash (#tube-furnace) makes each one linkable; the standalone
+  /blog pages remain for search engines and old links.
 */
 export function ProjectList({ projects }: { projects: Project[] }) {
   const dialogRef = useRef<HTMLDialogElement>(null)
   const [slug, setSlug] = useState<string | null>(null)
+  const [visible, setVisible] = useState(false)
   const post = slug ? getPost(slug) : undefined
+  const status = projects.find((p) => p.post === slug)?.status
 
   const open = useCallback((s: string) => {
     setSlug(s)
     history.replaceState(null, "", `#${s}`)
   }, [])
 
-  const close = useCallback(() => {
-    dialogRef.current?.close()
+  // Restore the page. Safe to call more than once.
+  const cleanup = useCallback(() => {
+    document.documentElement.style.overflow = ""
+    setVisible(false)
+    setSlug(null)
+    if (location.hash !== "#projects") history.replaceState(null, "", "#projects")
   }, [])
 
-  // Show the dialog once its content has rendered.
+  // Fade out first, then close the dialog and restore the page directly,
+  // rather than relying on the dialog's close event alone.
+  const close = useCallback(() => {
+    setVisible(false)
+    window.setTimeout(() => {
+      dialogRef.current?.close()
+      cleanup()
+    }, FADE_MS)
+  }, [cleanup])
+
+  // Show the dialog once its content has rendered, then fade it in.
   useEffect(() => {
     const d = dialogRef.current
     if (!d || !post) return
     if (!d.open) d.showModal()
-    d.scrollTop = 0
     document.documentElement.style.overflow = "hidden"
+    const frame = requestAnimationFrame(() => setVisible(true))
+    return () => cancelAnimationFrame(frame)
   }, [post])
 
   // Open from a shared link like hackerfab.ca/#tube-furnace, on load or
@@ -45,12 +65,6 @@ export function ProjectList({ projects }: { projects: Project[] }) {
     window.addEventListener("hashchange", fromHash)
     return () => window.removeEventListener("hashchange", fromHash)
   }, [open])
-
-  const onClose = () => {
-    document.documentElement.style.overflow = ""
-    setSlug(null)
-    history.replaceState(null, "", "#projects")
-  }
 
   return (
     <>
@@ -71,7 +85,7 @@ export function ProjectList({ projects }: { projects: Project[] }) {
               {p.post && (
                 <>
                   {" "}
-                  <button type="button" className="build-log-trigger" onClick={() => open(p.post!)}>
+                  <button type="button" className="build-log-more" onClick={() => open(p.post!)}>
                     Read the build log.
                   </button>
                 </>
@@ -84,22 +98,24 @@ export function ProjectList({ projects }: { projects: Project[] }) {
 
       <dialog
         ref={dialogRef}
-        className="build-log"
+        className={`build-log ${visible ? "is-visible" : ""}`}
         aria-label={post?.title}
-        onClose={onClose}
-        onClick={(e) => {
-          // Clicking the dimmed area outside the panel closes it.
-          if (e.target === e.currentTarget) close()
+        onClose={cleanup}
+        onCancel={(e) => {
+          // Esc: run the same fade-out as the close button.
+          e.preventDefault()
+          close()
         }}
       >
+        <div className="build-log__backdrop" onClick={close} />
         {post && (
-          <div className="build-log__panel halo">
-            <div className="flex justify-end">
-              <button type="button" className="nav-link t-nav" onClick={close}>
-                close
-              </button>
+          <div className="build-log__panel">
+            <button type="button" className="build-log__close" onClick={close}>
+              close
+            </button>
+            <div className="build-log__scroll">
+              <PostBody post={post} status={status} headingLevel={2} />
             </div>
-            <PostBody post={post} headingLevel={2} />
           </div>
         )}
       </dialog>

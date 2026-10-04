@@ -1,15 +1,13 @@
 "use client"
 
-import { Warp } from "@paper-design/shaders-react"
+import { GrainGradient, Warp } from "@paper-design/shaders-react"
 
 /*
-  Fire and smoke, inspired by the Trinity footage in Oppenheimer: swirling,
-  turbulent tendrils of ember on black, under a layer of film grain. Masked
-  so the heat rises from the bottom of the viewport and the top stays dark.
+  Fire under film grain, inspired by the Trinity footage in Oppenheimer.
+  Two layers: a grainy heat shockwave rising from the bottom, and a faint
+  wisp of smoke screened over it so the glow never settles into simple
+  rings. Masked so the heat stays low and the top of the page stays dark.
 */
-
-const GRAIN =
-  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")"
 
 const MASK =
   "linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.65) 28%, rgba(0,0,0,0.2) 55%, rgba(0,0,0,0) 75%)"
@@ -19,26 +17,40 @@ export function GradientBackground() {
     <div
       aria-hidden="true"
       className="fixed inset-0 -z-20 pointer-events-none"
-      style={{ opacity: 0.55, maskImage: MASK, WebkitMaskImage: MASK }}
+      style={{ maskImage: MASK, WebkitMaskImage: MASK }}
     >
-      <Warp
-        style={{ height: "100%", width: "100%" }}
-        colors={["#0a0a0a", "#7a2206", "#0a0a0a", "#e0601a", "#2a0a02"]}
-        proportion={0.42}
-        softness={1}
-        distortion={0.2}
-        swirl={0.55}
-        swirlIterations={7}
-        shape="checks"
-        shapeScale={0.07}
-        scale={1}
-        rotation={0}
-        speed={1}
-      />
-      <div
-        className="absolute inset-0 mix-blend-overlay"
-        style={{ backgroundImage: GRAIN, backgroundSize: "220px 220px", opacity: 0.5 }}
-      />
+      <div className="absolute inset-0" style={{ opacity: 0.6 }}>
+        <GrainGradient
+          style={{ height: "100%", width: "100%" }}
+          colorBack="hsl(0, 0%, 2%)"
+          softness={0.9}
+          intensity={0.45}
+          noise={0.5}
+          shape="ripple"
+          offsetX={0}
+          offsetY={1}
+          scale={1.2}
+          rotation={0}
+          speed={1.1}
+          colors={["#1a0400", "#6b1d05", "#c2470f", "#ff8a3d"]}
+        />
+      </div>
+      <div className="absolute inset-0 mix-blend-screen" style={{ opacity: 0.35 }}>
+        <Warp
+          style={{ height: "100%", width: "100%" }}
+          colors={["#000000", "#5a1804", "#000000", "#b44a12"]}
+          proportion={0.4}
+          softness={1}
+          distortion={0.15}
+          swirl={0.45}
+          swirlIterations={6}
+          shape="checks"
+          shapeScale={0.06}
+          scale={1}
+          rotation={0}
+          speed={0.8}
+        />
+      </div>
     </div>
   )
 }

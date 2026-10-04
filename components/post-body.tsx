@@ -1,13 +1,16 @@
 import type { Post, PostBlock } from "@/lib/posts"
 
-/* Renders a build log. Shared by the pop-out on the homepage and the
-   standalone /blog pages so both stay identical. */
+/*
+  Renders a build log in the layout of the original site: a reading column
+  on the left and the build image pinned on the right. Shared by the
+  homepage pop-out and the standalone /blog pages so both stay identical.
+*/
 
 export function Paragraphs({ text }: { text: string }) {
   return (
     <>
       {text.split(/\n\n+/).map((para, i) => (
-        <p key={i} className="t-body whitespace-pre-line">
+        <p key={i} className="whitespace-pre-line">
           {para}
         </p>
       ))}
@@ -16,87 +19,112 @@ export function Paragraphs({ text }: { text: string }) {
 }
 
 function Block({ block }: { block: PostBlock }) {
+  const pair = (block.images?.length ?? 0) > 1
   return (
-    <section className="space-y-5">
-      {block.heading && <h2 className="t-heading-20 text-primary pt-6">{block.heading}</h2>}
-      {block.body && <Paragraphs text={block.body} />}
-      {block.formula && <p className="t-heading-20 text-primary">{block.formula}</p>}
-      {block.items && (
-        <ul className="t-body list-disc pl-5 space-y-2 marker:text-[color:var(--text-secondary)]">
-          {block.items.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-      )}
-      {block.table && (
-        <div className="overflow-x-auto">
-          <table className="w-full t-body border-t border-[color:var(--border-subtle)]">
-            <tbody>
-              {block.table.map((row) => (
-                <tr key={row.label} className="border-b border-[color:var(--border-subtle)] align-baseline">
-                  <th scope="row" className="text-left font-bold text-primary py-3 pr-6 whitespace-nowrap">
-                    {row.label}
-                  </th>
-                  <td className="py-3">
-                    {row.link ? (
-                      <a className="nav-link text-primary" href={row.link} target="_blank" rel="noopener noreferrer">
-                        {row.value}
-                      </a>
-                    ) : (
-                      row.value
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-      {block.links && (
-        <ul className="t-body space-y-1">
-          {block.links.map((l) => (
-            <li key={l.url}>
-              <a className="nav-link text-primary" href={l.url} target="_blank" rel="noopener noreferrer">
+    <section className="space-y-3">
+      {block.heading && <h3 className="post-label">{block.heading}</h3>}
+      <div className="space-y-4">
+        {block.body && <Paragraphs text={block.body} />}
+        {block.formula && <p className="post-formula">{block.formula}</p>}
+        {block.items && (
+          <ul className="list-disc pl-4 space-y-2 marker:text-white/40">
+            {block.items.map((item) => (
+              <li key={item} className="pl-1">
+                {item}
+              </li>
+            ))}
+          </ul>
+        )}
+        {block.table && (
+          <div className="overflow-x-auto my-4">
+            <table className="w-full text-left border-collapse post-table">
+              <tbody>
+                {block.table.map((row) => (
+                  <tr key={row.label}>
+                    <th scope="row">{row.label}</th>
+                    <td>
+                      {row.link ? (
+                        <a href={row.link} target="_blank" rel="noopener noreferrer" className="post-link">
+                          {row.value}
+                        </a>
+                      ) : (
+                        row.value
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+        {block.links && (
+          <div className="flex flex-wrap gap-3 pt-2">
+            {block.links.map((l) => (
+              <a key={l.url} href={l.url} target="_blank" rel="noopener noreferrer" className="post-button">
                 {l.text}
               </a>
-            </li>
-          ))}
-        </ul>
-      )}
-      {block.images && (
-        <div className={`grid gap-4 ${block.images.length > 1 ? "sm:grid-cols-2" : ""}`}>
-          {block.images.map((img) => (
-            // Plain img: the site is a static export, so there is no image optimizer.
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              key={img.src}
-              src={img.src}
-              alt={img.alt}
-              loading="lazy"
-              className="w-full h-auto rounded-md border border-[color:var(--border-subtle)]"
-            />
-          ))}
-        </div>
-      )}
+            ))}
+          </div>
+        )}
+        {block.images && (
+          <div className={`grid gap-4 my-4 ${pair ? "grid-cols-2" : "grid-cols-1"}`}>
+            {block.images.map((img) => (
+              <div key={img.src} className={`post-image ${pair ? "aspect-[3/4]" : ""}`}>
+                {/* Plain img: the site is a static export with no image optimizer. */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  loading="lazy"
+                  className={pair ? "h-full w-full object-cover" : "w-full h-auto"}
+                />
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </section>
   )
 }
 
-export function PostBody({ post, headingLevel = 1 }: { post: Post; headingLevel?: 1 | 2 }) {
+function Cover({ post, className = "" }: { post: Post; className?: string }) {
+  return (
+    <figure className={`post-cover ${className}`}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={post.cover.src} alt={post.cover.alt} className="h-full w-full object-cover" />
+    </figure>
+  )
+}
+
+export function PostBody({
+  post,
+  status,
+  headingLevel = 1,
+}: {
+  post: Post
+  status?: string
+  headingLevel?: 1 | 2
+}) {
   const Title = headingLevel === 1 ? "h1" : "h2"
   return (
-    <div className="space-y-6">
-      <Title className="t-display">{post.title}</Title>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={post.cover.src}
-        alt={post.cover.alt}
-        className="w-full h-auto rounded-md border border-[color:var(--border-subtle)]"
-      />
-      <Paragraphs text={post.intro} />
-      {post.blocks.map((block, i) => (
-        <Block key={i} block={block} />
-      ))}
+    <div className="post mx-auto flex w-full max-w-5xl flex-col gap-10 md:flex-row md:gap-12">
+      <div className="post-text flex-1 min-w-0 flex flex-col gap-6">
+        {status && <p className="post-label">{status}</p>}
+        <Title className="post-title">{post.title}</Title>
+        <Cover post={post} className="md:hidden" />
+        <div className="space-y-4">
+          <Paragraphs text={post.intro} />
+        </div>
+        {post.blocks.map((block, i) => (
+          <Block key={i} block={block} />
+        ))}
+      </div>
+      <aside className="hidden md:block w-full max-w-sm flex-shrink-0">
+        <div className="sticky top-0">
+          <p className="post-label">build image</p>
+          <Cover post={post} className="mt-4" />
+        </div>
+      </aside>
     </div>
   )
 }

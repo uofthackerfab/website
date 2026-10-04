@@ -29,7 +29,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
       <SiteHeader />
       <main className="pt-[72px] halo">
         <article className="shell py-16 md:py-24">
-          <div className="max-w-[48rem] mx-auto space-y-6">
+          <div className="max-w-5xl mx-auto space-y-6">
             <Link href="/#projects" className="nav-link t-nav">
               back to projects
             </Link>
