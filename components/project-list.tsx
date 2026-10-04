@@ -29,6 +29,7 @@ export function ProjectList({ projects }: { projects: Project[] }) {
   // Restore the page. Safe to call more than once.
   const cleanup = useCallback(() => {
     document.documentElement.style.overflow = ""
+    document.documentElement.classList.remove("build-log-open")
     setVisible(false)
     setSlug(null)
     if (location.hash !== "#projects") history.replaceState(null, "", "#projects")
@@ -50,6 +51,7 @@ export function ProjectList({ projects }: { projects: Project[] }) {
     if (!d || !post) return
     if (!d.open) d.showModal()
     document.documentElement.style.overflow = "hidden"
+    document.documentElement.classList.add("build-log-open")
     const frame = requestAnimationFrame(() => setVisible(true))
     return () => cancelAnimationFrame(frame)
   }, [post])

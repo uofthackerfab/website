@@ -147,10 +147,7 @@
   .halo,
   .content,
   .hero-copy {
-    text-shadow:
-      0 0 6px rgba(10, 10, 10, 0.9),
-      0 0 18px rgba(10, 10, 10, 0.75),
-      0 0 36px rgba(10, 10, 10, 0.55);
+    text-shadow: 0 0 14px rgba(10, 10, 10, 0.9);
   }
   .section {
     padding-block: clamp(48px, 7vw, 88px);
@@ -237,8 +234,6 @@
   background:
     radial-gradient(circle at top, rgba(255, 255, 255, 0.06), transparent 55%),
     rgba(8, 8, 8, 0.96);
-  backdrop-filter: blur(60px);
-  -webkit-backdrop-filter: blur(60px);
   opacity: 0;
   transition: opacity 320ms ease;
 }
@@ -303,6 +298,12 @@
   .build-log__panel {
     transition: none;
   }
+}
+
+/* The page behind an open pop-out is covered, so stop drawing the
+   animated background until it closes. */
+.build-log-open .site-bg {
+  display: none;
 }
 
 /* Build log content */
