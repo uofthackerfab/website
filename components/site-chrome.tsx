@@ -1,8 +1,7 @@
 import Link from "next/link"
 
 export const JOIN_URL = "https://form.typeform.com/to/WDKMFCuC"
-// Switch to https://docs.hackerfab.ca once that custom domain is attached in Cloudflare.
-export const DOCS_URL = "https://docs-six-gilt.vercel.app"
+export const DOCS_URL = "https://docs.hackerfab.ca"
 
 export function SiteHeader() {
   return (

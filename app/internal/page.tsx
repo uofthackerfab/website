@@ -9,7 +9,7 @@ export const metadata = {
 const docsUrl =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3002/#/"
-    : "https://docs-six-gilt.vercel.app/#/";
+    : "https://docs.hackerfab.ca/#/";
 
 export default function InternalDocsPage() {
   return (
