@@ -69,7 +69,7 @@ export function HeroScene({ children }: { children: React.ReactNode }) {
       const wide = window.innerWidth >= 900
       if (stageRef.current) {
         const shiftX = wide ? window.innerWidth * 0.24 : 0
-        const shiftY = wide ? -window.innerHeight * 0.02 : -window.innerHeight * 0.22
+        const shiftY = wide ? -window.innerHeight * 0.02 : -window.innerHeight * 0.3
         // With reduced motion the chip stays beside the copy.
         const k = reduceMotion ? 1 : 1 - ease
         stageRef.current.style.transform = `translate(${shiftX * k}px, ${shiftY * k}px)`
@@ -96,7 +96,9 @@ export function HeroScene({ children }: { children: React.ReactNode }) {
       }
       if (L.pool) {
         L.pool.style.opacity = (0.35 + heat * 0.45).toString()
-        L.pool.style.transform = `translate(0px, 200px) scale(${0.95 + p * 0.25})`
+        // SVG transform attribute: scales about the ellipse's own centre (x = 0),
+        // so the glow stays centred under the chip.
+        L.pool.setAttribute("transform", `translate(0 200) scale(${0.95 + p * 0.25})`)
       }
 
       // Hero copy recedes over the first 45% of travel.
@@ -137,12 +139,12 @@ export function HeroScene({ children }: { children: React.ReactNode }) {
         >
           <div
             ref={stageRef}
-            className="relative w-[min(92vw,820px,72vh)] aspect-square flex items-center justify-center translate-y-[6vh] md:translate-y-[4vh] will-change-transform"
+            className="relative w-[min(92vw,820px,72vh)] aspect-square flex items-center justify-center translate-y-[6vh] md:translate-y-[4vh]"
           >
             <svg
               ref={svgRef}
               viewBox="-200 -250 400 500"
-              className="w-full h-full overflow-visible will-change-transform"
+              className="w-full h-full overflow-visible"
               style={{ opacity: 0.35, transform: "scale(0.72) rotate(-8deg)" }}
             >
               <defs>
@@ -172,13 +174,14 @@ export function HeroScene({ children }: { children: React.ReactNode }) {
               {/* Ember pool beneath the package */}
               <g
                 ref={setRef("pool")}
-                style={{ transformOrigin: "center", willChange: "transform, opacity", opacity: 0.35, transform: "translate(0px, 200px)" }}
+                transform="translate(0 200)"
+                style={{ opacity: 0.35 }}
               >
-                <ellipse cx="0" cy="10" rx="140" ry="52" fill="url(#ember-pool)" />
+                <ellipse cx="0" cy="0" rx="140" ry="52" fill="url(#ember-pool)" />
               </g>
 
               {/* Base substrate */}
-              <g ref={setRef("base")} style={{ willChange: "transform" }}>
+              <g ref={setRef("base")}>
                 <path className={structure} d="M-80,10 L-80,25 L0,55 L0,40 Z" />
                 <path className={structureDark} d="M0,40 L0,55 L80,25 L80,10 Z" />
                 <path className={structureTop} d="M0,-20 L80,10 L0,40 L-80,10 Z" />
@@ -191,7 +194,7 @@ export function HeroScene({ children }: { children: React.ReactNode }) {
               </g>
 
               {/* Interposer */}
-              <g ref={setRef("sub")} transform="translate(0, -10)" style={{ willChange: "transform" }}>
+              <g ref={setRef("sub")} transform="translate(0, -10)">
                 <path className={structure} d="M-65,5 L-65,8 L0,32 L0,29 Z" />
                 <path className={structureDark} d="M0,29 L0,32 L65,8 L65,5 Z" />
                 <path className={structureTop} d="M0,-20 L65,5 L0,29 L-65,5 Z" />
@@ -210,8 +213,8 @@ export function HeroScene({ children }: { children: React.ReactNode }) {
               </g>
 
               {/* Silicon die (the wafer that heats) */}
-              <g ref={setRef("die")} transform="translate(0, -25)" style={{ willChange: "transform" }}>
-                <g ref={setRef("heatGlow")} style={{ opacity: 0.08, willChange: "opacity" }}>
+              <g ref={setRef("die")} transform="translate(0, -25)">
+                <g ref={setRef("heatGlow")} style={{ opacity: 0.08 }}>
                   <ellipse cx="0" cy="2" rx="70" ry="30" fill="url(#heat-glow)" />
                 </g>
                 <path className={structure} d="M-30,0 L-30,3 L0,14 L0,11 Z" />
@@ -223,7 +226,7 @@ export function HeroScene({ children }: { children: React.ReactNode }) {
                   d="M0,-11 L30,0 L0,11 L-30,0 Z"
                 />
                 <path fill="url(#die-pattern)" d="M0,-11 L30,0 L0,11 L-30,0 Z" />
-                <g ref={setRef("heatCore")} style={{ opacity: 0, willChange: "opacity" }}>
+                <g ref={setRef("heatCore")} style={{ opacity: 0 }}>
                   <ellipse cx="0" cy="0" rx="14" ry="6" fill="#ffe4c4" opacity="0.5" />
                 </g>
                 <g transform="translate(-45, 8)">
@@ -240,7 +243,7 @@ export function HeroScene({ children }: { children: React.ReactNode }) {
               </g>
 
               {/* Retention frame */}
-              <g ref={setRef("ring")} transform="translate(0, -40)" style={{ willChange: "transform" }}>
+              <g ref={setRef("ring")} transform="translate(0, -40)">
                 <path className={structure} d="M-70,5 L-70,8 L0,35 L0,32 Z" />
                 <path className={structureDark} d="M0,32 L0,35 L70,8 L70,5 Z" />
                 <path
@@ -253,7 +256,7 @@ export function HeroScene({ children }: { children: React.ReactNode }) {
               </g>
 
               {/* Heat spreader */}
-              <g ref={setRef("lid")} transform="translate(0, -55)" style={{ willChange: "transform" }}>
+              <g ref={setRef("lid")} transform="translate(0, -55)">
                 <path className={structure} d="M-70,5 L-70,12 L0,39 L0,32 Z" />
                 <path className={structureDark} d="M0,32 L0,39 L70,12 L70,5 Z" />
                 <path className={structureTop} d="M0,-22 L70,5 L0,32 L-70,5 Z" />
@@ -268,7 +271,7 @@ export function HeroScene({ children }: { children: React.ReactNode }) {
         </div>
 
         {/* Copy */}
-        <div ref={copyRef} className="hero-copy absolute inset-x-0 top-0 h-full flex flex-col justify-end pb-[9vh] md:pb-[11vh]">
+        <div ref={copyRef} className="hero-copy absolute inset-x-0 top-0 h-full flex flex-col justify-center pt-[72px]">
           {children}
         </div>
       </div>

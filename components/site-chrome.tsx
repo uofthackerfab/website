@@ -10,7 +10,7 @@ export function SiteHeader() {
         <Link href="/" className="t-nav font-bold">
           Hacker Fab
         </Link>
-        <nav aria-label="Primary" className="flex items-center gap-8 t-nav">
+        <nav aria-label="Primary" className="flex items-center gap-5 sm:gap-8 t-nav">
           <Link className="nav-link" href="/#projects">
             projects
           </Link>

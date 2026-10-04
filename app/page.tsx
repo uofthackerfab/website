@@ -1,21 +1,21 @@
 import Image from "next/image"
-import Link from "next/link"
 import { GradientBackground } from "@/components/gradient-background"
 import { HeroScene } from "@/components/hero-scene"
 import { ShopifyLogo } from "@/components/shopify-logo"
+import { ProjectList, type Project } from "@/components/project-list"
 import { SiteFooter, SiteHeader } from "@/components/site-chrome"
 
-const projects: { name: string; status: string; detail: string; post?: string }[] = [
+const projects: Project[] = [
   {
     name: "Tube furnace",
     status: "Working",
-    post: "/blog/tube-furnace",
+    post: "tube-furnace",
     detail: "Grows silicon dioxide on the wafer for insulation, masking, or a gate oxide.",
   },
   {
     name: "Spin coater",
     status: "Working",
-    post: "/blog/spin-coater",
+    post: "spin-coater",
     detail: "Spins the wafer at high speed to spread photoresist into a thin, even film.",
   },
   {
@@ -105,25 +105,7 @@ export default function Page() {
               A basic chip process needs tools to grow, deposit, coat, and pattern material. We are
               building each one, starting hacky and making it robust and safe.
             </p>
-            <dl className="divide-y divide-[color:var(--border-subtle)] border-y border-[color:var(--border-subtle)]">
-              {projects.map((p) => (
-                <div key={p.name} className="py-5 grid sm:grid-cols-[16rem_1fr_auto] gap-x-6 gap-y-1">
-                  <dt className="t-heading-16 text-primary">{p.name}</dt>
-                  <dd className="t-body">
-                    {p.detail}
-                    {p.post && (
-                      <>
-                        {" "}
-                        <Link className="nav-link text-primary" href={p.post}>
-                          Read the build log.
-                        </Link>
-                      </>
-                    )}
-                  </dd>
-                  <dd className="t-caption sm:text-right whitespace-nowrap">{p.status}</dd>
-                </div>
-              ))}
-            </dl>
+            <ProjectList projects={projects} />
             <p className="t-body">
               Alongside the tools, we are writing a process proposal built around one question:
               when a multi-step process goes wrong, how do we find and fix the problem? Every
