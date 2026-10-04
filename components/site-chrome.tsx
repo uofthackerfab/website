@@ -8,9 +8,9 @@ export function SiteHeader() {
     <header className="site-header fixed inset-x-0 top-0 z-50">
       <div className="shell flex items-center justify-between h-[72px]">
         <Link href="/" className="t-nav font-bold">
-          Hacker Fab
+          Toronto Hacker Fab
         </Link>
-        <nav aria-label="Primary" className="flex items-center gap-5 sm:gap-8 t-nav">
+        <nav aria-label="Primary" className="flex items-center gap-4 sm:gap-8 t-nav">
           <Link className="nav-link" href="/#projects">
             projects
           </Link>
@@ -30,7 +30,7 @@ export function SiteFooter() {
   return (
     <footer className="border-t border-[color:var(--border-subtle)]">
       <div className="shell flex items-center justify-between gap-4 py-8 t-nav">
-        <span className="font-bold">Hacker Fab</span>
+        <span className="font-bold">Toronto Hacker Fab</span>
         <nav aria-label="Footer" className="flex gap-8">
           <a className="nav-link" href={DOCS_URL} target="_blank" rel="noopener noreferrer">
             docs

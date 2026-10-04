@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Internal Documentation | Hacker Fab",
+  title: "Internal Documentation | Toronto Hacker Fab",
   robots: {
     index: false,
     follow: false,
@@ -17,7 +17,7 @@ export default function InternalDocsPage() {
       <iframe 
         src={docsUrl} 
         className="w-full h-full border-0"
-        title="Internal Hacker Fab Docs"
+        title="Internal Toronto Hacker Fab Docs"
       />
     </div>
   );

@@ -63,9 +63,9 @@ export default function Page() {
       <main id="top" className="relative">
         <HeroScene>
           <div className="shell">
-            <div className="max-w-[44rem]">
-              <h1 className="t-display">Hacker Fab</h1>
-              <p className="t-lede mt-6">
+            <div className="max-w-[56rem]">
+              <h1 className="t-display">Toronto Hacker Fab</h1>
+              <p className="t-lede mt-6 max-w-[44rem]">
                 A student-run project at the University of Toronto building an open hardware stack
                 and software toolchain for making chips.
               </p>
@@ -126,7 +126,7 @@ export default function Page() {
 
           <Section id="support" title="Supported by">
             <p className="t-body">
-              Hacker Fab is funded by grants from Shopify and Emergent Ventures. Thank you.
+              Toronto Hacker Fab is funded by grants from Shopify and Emergent Ventures. Thank you.
             </p>
             <ul className="flex flex-wrap items-center gap-x-12 gap-y-6 text-primary">
               <li>

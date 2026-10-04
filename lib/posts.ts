@@ -27,7 +27,7 @@ export const posts: Post[] = [
       "src": "/furnace.gif",
       "alt": "Tube furnace glowing while powered"
     },
-    "intro": "Welcome to Hacker Fab’s first blog post! We consist of a small group of just three people, just trying to do things. We recently completed a huge milestone by creating a working tube furnace! It heats up exactly like an oven, uses resistive heating elements to raise temperatures. Although it sounds simple, there were a huge amount of challenges that we came across, of varying danger levels.\n\nIn this blog below, we break down exactly how we built a working and durable furnace without the hazards. Along the way, we’ll deep dive into exactly how everything was built and the problems that we came across the road. We want this blog to take you on a journey of how we approached and thought about the problem - specifically, working on things the hacky way, and building things up from first principles.",
+    "intro": "Welcome to Toronto Hacker Fab’s first blog post! We consist of a small group of just three people, just trying to do things. We recently completed a huge milestone by creating a working tube furnace! It heats up exactly like an oven, uses resistive heating elements to raise temperatures. Although it sounds simple, there were a huge amount of challenges that we came across, of varying danger levels.\n\nIn this blog below, we break down exactly how we built a working and durable furnace without the hazards. Along the way, we’ll deep dive into exactly how everything was built and the problems that we came across the road. We want this blog to take you on a journey of how we approached and thought about the problem - specifically, working on things the hacky way, and building things up from first principles.",
     "blocks": [
       {
         "heading": "Disclaimer",
@@ -35,7 +35,7 @@ export const posts: Post[] = [
       },
       {
         "heading": "Background",
-        "body": "Hacker Fab aims to provide a pipeline for chip tapeout at small scale, low cost. Our first goal is to be able to fabricate an NMOS transistor, which the tube furnace would allow us to accomplish. Specifically, the tube furnace is responsible for catalyzing the chemical reaction with silicon below:",
+        "body": "Toronto Hacker Fab aims to provide a pipeline for chip tapeout at small scale, low cost. Our first goal is to be able to fabricate an NMOS transistor, which the tube furnace would allow us to accomplish. Specifically, the tube furnace is responsible for catalyzing the chemical reaction with silicon below:",
         "formula": "Si + O₂ → SiO₂"
       },
       {
