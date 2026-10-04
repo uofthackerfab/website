@@ -1,7 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
 import localFont from "next/font/local"
-import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 
 const hack = localFont({
@@ -19,7 +18,7 @@ export const metadata: Metadata = {
   title: "Hacker Fab Toronto",
   description:
     "A student-run team at the University of Toronto building an open hardware stack and toolchain for fabricating semiconductor devices.",
-  metadataBase: new URL("https://torontohackerfab.com"),
+  metadataBase: new URL("https://hackerfab.ca"),
   openGraph: {
     title: "Hacker Fab Toronto",
     description:
@@ -37,7 +36,6 @@ export default function RootLayout({
     <html lang="en" className={`${hack.variable} antialiased`}>
       <body suppressHydrationWarning>
         {children}
-        <Analytics />
       </body>
     </html>
   )
