@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Internal Documentation | Toronto Hacker Fab",
+  title: "Internal Documentation | Hacker Fab",
   robots: {
     index: false,
     follow: false,
@@ -9,7 +9,7 @@ export const metadata = {
 const docsUrl =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3002/#/"
-    : "https://docs.hackerfab.ca/#/";
+    : "https://docs-six-gilt.vercel.app/#/";
 
 export default function InternalDocsPage() {
   return (
