@@ -15,12 +15,12 @@ const hack = localFont({
 })
 
 export const metadata: Metadata = {
-  title: "Hacker Fab Toronto",
+  title: "Hacker Fab",
   description:
     "A student-run team at the University of Toronto building an open hardware stack and toolchain for fabricating semiconductor devices.",
   metadataBase: new URL("https://hackerfab.ca"),
   openGraph: {
-    title: "Hacker Fab Toronto",
+    title: "Hacker Fab",
     description:
       "Open, reproducible chip fabrication. Design, fabricate, measure, debug, repeat.",
     type: "website",

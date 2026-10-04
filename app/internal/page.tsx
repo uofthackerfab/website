@@ -9,7 +9,7 @@ export const metadata = {
 const docsUrl =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3002/#/"
-    : "https://docs.torontohackerfab.com/#/";
+    : "https://docs.hackerfab.ca/#/";
 
 export default function InternalDocsPage() {
   return (
