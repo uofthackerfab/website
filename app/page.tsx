@@ -1,20 +1,21 @@
 import Image from "next/image"
+import Link from "next/link"
 import { GradientBackground } from "@/components/gradient-background"
 import { HeroScene } from "@/components/hero-scene"
 import { ShopifyLogo } from "@/components/shopify-logo"
+import { SiteFooter, SiteHeader } from "@/components/site-chrome"
 
-const JOIN_URL = "https://form.typeform.com/to/WDKMFCuC"
-const DOCS_URL = "https://docs.hackerfab.ca"
-
-const projects = [
+const projects: { name: string; status: string; detail: string; post?: string }[] = [
   {
     name: "Tube furnace",
     status: "Working",
+    post: "/blog/tube-furnace",
     detail: "Grows silicon dioxide on the wafer for insulation, masking, or a gate oxide.",
   },
   {
     name: "Spin coater",
     status: "Working",
+    post: "/blog/spin-coater",
     detail: "Spins the wafer at high speed to spread photoresist into a thin, even film.",
   },
   {
@@ -57,24 +58,7 @@ export default function Page() {
     <>
       <GradientBackground />
 
-      <header className="site-header fixed inset-x-0 top-0 z-50">
-        <div className="shell flex items-center justify-between h-[72px]">
-          <a href="#top" className="t-nav font-bold">
-            Hacker Fab
-          </a>
-          <nav aria-label="Primary" className="flex items-center gap-8 t-nav">
-            <a className="nav-link" href="#projects">
-              projects
-            </a>
-            <a className="nav-link" href={DOCS_URL} target="_blank" rel="noopener noreferrer">
-              docs
-            </a>
-            <a className="nav-link" href={JOIN_URL} target="_blank" rel="noopener noreferrer">
-              join
-            </a>
-          </nav>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main id="top" className="relative">
         <HeroScene>
@@ -125,7 +109,17 @@ export default function Page() {
               {projects.map((p) => (
                 <div key={p.name} className="py-5 grid sm:grid-cols-[16rem_1fr_auto] gap-x-6 gap-y-1">
                   <dt className="t-heading-16 text-primary">{p.name}</dt>
-                  <dd className="t-body">{p.detail}</dd>
+                  <dd className="t-body">
+                    {p.detail}
+                    {p.post && (
+                      <>
+                        {" "}
+                        <Link className="nav-link text-primary" href={p.post}>
+                          Read the build log.
+                        </Link>
+                      </>
+                    )}
+                  </dd>
                   <dd className="t-caption sm:text-right whitespace-nowrap">{p.status}</dd>
                 </div>
               ))}
@@ -172,19 +166,7 @@ export default function Page() {
             </ul>
           </Section>
 
-          <footer className="border-t border-[color:var(--border-subtle)]">
-            <div className="shell flex items-center justify-between gap-4 py-8 t-nav">
-              <span className="font-bold">Hacker Fab</span>
-              <nav aria-label="Footer" className="flex gap-8">
-                <a className="nav-link" href={DOCS_URL} target="_blank" rel="noopener noreferrer">
-                  docs
-                </a>
-                <a className="nav-link" href={JOIN_URL} target="_blank" rel="noopener noreferrer">
-                  join
-                </a>
-              </nav>
-            </div>
-          </footer>
+          <SiteFooter />
         </div>
       </main>
     </>
