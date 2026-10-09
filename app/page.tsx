@@ -31,7 +31,7 @@ const projects: Project[] = [
 ]
 
 const team = [
-  { name: "Kenny Guo", link: "https://www.linkedin.com/in/kennyguo" },
+  { name: "Kenny Guo", link: "https://www.linkedin.com/in/kennykguo/" },
   { name: "Krish Chhajer", link: "https://www.linkedin.com/in/krish-chhajer/" },
   { name: "Luthira Abeykoon", link: "https://www.linkedin.com/in/luthiraa/" },
   { name: "William Xu", link: "https://www.linkedin.com/in/william-xu-willy/" },
