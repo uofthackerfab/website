@@ -36,6 +36,7 @@ const team = [
   { name: "Luthira Abeykoon", link: "https://www.linkedin.com/in/luthiraa/" },
   { name: "William Xu", link: "https://www.linkedin.com/in/william-xu-willy/" },
   { name: "Adit Bhargava", link: "https://www.linkedin.com/in/adit-bhargava/" },
+  { name: "Jefferson Chen", link: "https://www.linkedin.com/in/jefferson-chen-543b65327/" },
 ]
 
 function Section({ id, title, children }: { id: string; title: string; children: React.ReactNode }) {
